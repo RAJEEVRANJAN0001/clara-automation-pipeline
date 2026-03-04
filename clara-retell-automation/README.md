@@ -294,6 +294,71 @@ All other dependencies are Python 3.9+ standard library. No OpenAI API key neede
 
 ---
 
+## Retell Setup Guide
+
+### Creating a Retell Account
+
+1. Go to [https://www.retellai.com](https://www.retellai.com) and sign up for a free account
+2. After logging in, navigate to **Settings → API Keys** and copy your API key
+3. Note: If the free tier does not allow programmatic agent creation, follow the manual import steps below
+
+### Importing the Agent Spec into Retell
+
+Each generated `agent_spec.json` is designed to match Retell's agent configuration format. To deploy an agent manually:
+
+1. Open the Retell Dashboard → **Agents** → **Create New Agent**
+2. Set **Agent Name** to the value from `agent_name` (e.g. "ABC Plumbing Assistant")
+3. Set **Voice** to the value from `voice_id` (e.g. "Retell-Cimo")
+4. Set **Language** to `en-US`
+5. Under **Conversation Flow**, paste the contents of `conversationFlow.global_prompt` as the system prompt
+6. Configure **Call Transfer**:
+   - Set the transfer number from `call_transfer_protocol.transfer_number`
+   - Set max rings / timeout from `call_transfer_protocol.max_rings`
+7. Configure **Fallback** behavior using the text from `fallback_protocol`
+8. Set **Variables** from the `variables` section (business\_hours, emergency\_routing, office\_address)
+9. Save and publish the agent
+
+### Using with the Retell API (if available)
+
+```bash
+# Example: Create agent via API (requires paid tier)
+curl -X POST https://api.retellai.com/v2/create-agent \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d @outputs/accounts/acc_001/v2/agent_spec.json
+```
+
+> Since Retell's free tier may not support API-based agent creation, the pipeline outputs offline-ready spec files that can be manually imported via the steps above.
+
+---
+
+## Known Limitations
+
+1. **Regex-based extraction** — The extraction pipeline uses pattern matching (not LLM), which may miss unusual phrasings, abbreviations, or non-standard transcript formats
+2. **No live Retell API integration** — Agent specs are generated as offline JSON files; deploying to Retell requires manual import or a paid API tier
+3. **Audio transcription requires Whisper** — The `.m4a` audio files can only be transcribed if `openai-whisper` is installed locally; the pipeline primarily uses `.txt` transcripts
+4. **Single-language support** — Currently configured for `en-US` only; multilingual transcripts are not handled
+5. **Confidence scoring is heuristic** — Field-specific weights are tuned for the demo dataset and may not generalize to all service industries
+6. **No real-time processing** — The pipeline runs as a batch job; there is no webhook-triggered or streaming mode
+7. **Task tracker is file-based** — Uses local JSON storage rather than a real project management API (Asana, Jira, etc.)
+
+---
+
+## What We Would Improve with Production Access
+
+1. **LLM-powered extraction** — Replace regex patterns with GPT-4 or Claude for higher extraction accuracy, especially for ambiguous or complex transcripts
+2. **Retell API integration** — Auto-deploy agents directly to Retell via their API, eliminating manual import steps
+3. **Real-time Whisper transcription** — Stream audio → Whisper → extraction pipeline with no manual transcript step
+4. **Webhook-driven n8n triggers** — Replace manual execution with webhook nodes that trigger on new file uploads or form submissions
+5. **Database-backed storage** — Move from JSON files to Supabase or PostgreSQL for proper querying, versioning, and multi-user access
+6. **Automated testing** — Build test suites that validate extraction quality against known ground-truth transcripts
+7. **Multi-language support** — Extend extraction patterns and agent prompts for Spanish, French, and other languages
+8. **Production monitoring** — Add logging, error alerting, and metrics dashboards for pipeline health
+9. **Asana/Jira integration** — Replace the file-based task tracker with real API calls to project management tools
+10. **Agent performance feedback loop** — Collect call outcomes from Retell and feed them back to improve extraction and prompt quality
+
+---
+
 ## License
 
 MIT
