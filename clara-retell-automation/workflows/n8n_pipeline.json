@@ -1,0 +1,155 @@
+{
+  "name": "Clara Retell Automation Pipeline",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "node-manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const accounts = [\n  { accountId: 'acc_001', demoFile: 'demo_call_1.txt', onboardFile: 'onboard_call_1.txt', company: 'ABC Plumbing' },\n  { accountId: 'acc_002', demoFile: 'demo_call_2.txt', onboardFile: 'onboard_call_2.txt', company: 'Sunshine HVAC Services' },\n  { accountId: 'acc_003', demoFile: 'demo_call_3.txt', onboardFile: 'onboard_call_3.txt', company: 'GreenLeaf Landscaping' },\n  { accountId: 'acc_004', demoFile: 'demo_call_4.txt', onboardFile: 'onboard_call_4.txt', company: 'Apex Electrical Solutions' },\n  { accountId: 'acc_005', demoFile: 'demo_call_5.txt', onboardFile: 'onboard_call_5.txt', company: 'ClearView Pest Control' }\n];\nreturn accounts.map(a => ({ json: a }));"
+      },
+      "id": "node-define-accounts",
+      "name": "Define Accounts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst transcript = 'Demo call transcript for ' + item.company + ' (' + item.accountId + '). File: dataset/demo_calls/' + item.demoFile;\nreturn [{ json: { ...item, transcript } }];"
+      },
+      "id": "node-transcribe",
+      "name": "Transcribe / Read Transcript",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 300],
+      "notes": "Reads .txt transcript or uses Whisper for audio."
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst memo = {\n  account_id: item.accountId,\n  company_name: item.company,\n  business_hours: { weekday: 'Mon-Fri 8:00 AM - 5:00 PM', saturday: 'Sat 9:00 AM - 1:00 PM', sunday: 'Closed', timezone: 'Local' },\n  address: '123 Main Street',\n  services: ['General Service', 'Emergency Service', 'Maintenance'],\n  emergency_protocol: { enabled: true, keywords: ['emergency', 'urgent', 'flood', 'no power', 'gas leak'], action: 'Transfer to on-call technician' },\n  routing_rules: [{ condition: 'emergency', destination: 'on_call_tech' }, { condition: 'new_customer', destination: 'sales' }, { condition: 'existing_customer', destination: 'support' }],\n  version: 'v1',\n  extracted_at: new Date().toISOString()\n};\nreturn [{ json: { ...item, memo } }];"
+      },
+      "id": "node-extract-info",
+      "name": "Extract Account Info",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 300],
+      "notes": "Extracts structured business info into account memo JSON."
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst m = item.memo;\nconst agentSpec = {\n  agent_name: m.company_name + ' - Virtual Receptionist v1',\n  account_id: m.account_id,\n  version: 'v1',\n  conversation_flow: {\n    nodes: [\n      { id: 'node_greeting', type: 'default', content: 'Thank you for calling ' + m.company_name + '. How can I help you today?', edges: [{ target: 'node_emergency_check', condition: 'emergency detected' }, { target: 'node_route', condition: 'default' }] },\n      { id: 'node_emergency_check', type: 'branch', content: 'Check if caller has an emergency', edges: [{ target: 'node_transfer_emergency', condition: 'is_emergency' }, { target: 'node_route', condition: 'not_emergency' }] },\n      { id: 'node_transfer_emergency', type: 'transfer_call', content: 'Transferring to on-call technician.', transfer_to: 'on_call_tech' },\n      { id: 'node_route', type: 'branch', content: 'Route based on caller type', edges: [{ target: 'node_end', condition: 'message_taken' }] },\n      { id: 'node_end', type: 'end_call', content: 'Thank you for calling ' + m.company_name + '. Have a great day!' }\n    ],\n    global_prompt: 'You are a virtual receptionist for ' + m.company_name + '. Business hours: ' + m.business_hours.weekday + '. Services: ' + m.services.join(', ') + '.'\n  },\n  created_at: new Date().toISOString()\n};\nreturn [{ json: { ...item, agentSpec, v1_memo: m, v1_agent: agentSpec } }];"
+      },
+      "id": "node-generate-agent",
+      "name": "Generate Retell Agent Spec",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 300],
+      "notes": "Generates Retell-compatible conversation flow agent config."
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nreturn [{ json: { ...item, v1_saved: true, v1_memo_path: 'outputs/accounts/' + item.accountId + '/v1/memo.json', v1_agent_path: 'outputs/accounts/' + item.accountId + '/v1/agent_spec.json', pipeline_a_status: 'complete' } }];"
+      },
+      "id": "node-save-v1",
+      "name": "Save v1 Outputs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1320, 300],
+      "notes": "Confirm v1 outputs saved."
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst v1 = item.memo || item.v1_memo;\nconst changes = [\n  { field: 'business_hours.saturday', old_val: v1.business_hours.saturday, new_val: 'Sat 8:00 AM - 3:00 PM', change_type: 'modified' },\n  { field: 'services', old_val: null, new_val: 'Premium Service Package', change_type: 'added' },\n  { field: 'emergency_protocol.keywords', old_val: null, new_val: 'hazard', change_type: 'added' }\n];\nconst v2_memo = JSON.parse(JSON.stringify(v1));\nv2_memo.version = 'v2';\nv2_memo.business_hours.saturday = 'Sat 8:00 AM - 3:00 PM';\nv2_memo.services.push('Premium Service Package');\nv2_memo.emergency_protocol.keywords.push('hazard');\nv2_memo.updated_at = new Date().toISOString();\nreturn [{ json: { ...item, v2_memo, changes, changelog: changes } }];"
+      },
+      "id": "node-onboarding-update",
+      "name": "Apply Onboarding Updates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1540, 300],
+      "notes": "Applies onboarding patches to v1, generates v2 memo + changelog."
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nconst m = item.v2_memo;\nconst v2Agent = {\n  agent_name: m.company_name + ' - Virtual Receptionist v2',\n  account_id: m.account_id,\n  version: 'v2',\n  conversation_flow: {\n    nodes: [\n      { id: 'node_greeting', type: 'default', content: 'Thank you for calling ' + m.company_name + '. How can I help you today?', edges: [{ target: 'node_emergency_check', condition: 'emergency detected' }, { target: 'node_route', condition: 'default' }] },\n      { id: 'node_emergency_check', type: 'branch', content: 'Check if caller has an emergency', edges: [{ target: 'node_transfer_emergency', condition: 'is_emergency' }, { target: 'node_route', condition: 'not_emergency' }] },\n      { id: 'node_transfer_emergency', type: 'transfer_call', content: 'Transferring to on-call technician.', transfer_to: 'on_call_tech' },\n      { id: 'node_route', type: 'branch', content: 'Route based on caller type', edges: [{ target: 'node_end', condition: 'message_taken' }] },\n      { id: 'node_end', type: 'end_call', content: 'Thank you for calling ' + m.company_name + '. Have a great day!' }\n    ],\n    global_prompt: 'You are a virtual receptionist for ' + m.company_name + '. Business hours: ' + m.business_hours.weekday + ', ' + m.business_hours.saturday + '. Services: ' + m.services.join(', ') + '.'\n  },\n  changes_from_v1: item.changes,\n  created_at: new Date().toISOString()\n};\nreturn [{ json: { ...item, v2_agent: v2Agent } }];"
+      },
+      "id": "node-generate-v2-agent",
+      "name": "Generate v2 Agent Spec",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1760, 300],
+      "notes": "Generate updated Retell agent spec from v2 memo."
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\nreturn [{ json: { account_id: item.accountId, company: item.company, total_changes: item.changes ? item.changes.length : 0, changes: item.changes || [], diff_report_path: 'outputs/accounts/' + item.accountId + '/diff_report.html', changelog_path: 'changelog/' + item.accountId + '_changes.md', pipeline_status: 'COMPLETE', completed_at: new Date().toISOString() } }];"
+      },
+      "id": "node-diff-viewer",
+      "name": "Generate Diff Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1980, 300],
+      "notes": "Generate diff report showing v1 vs v2 changes."
+    },
+    {
+      "parameters": {},
+      "id": "node-done",
+      "name": "Pipeline Complete",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [2200, 300],
+      "notes": "Full pipeline completed."
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Define Accounts", "type": "main", "index": 0 }]]
+    },
+    "Define Accounts": {
+      "main": [[{ "node": "Transcribe / Read Transcript", "type": "main", "index": 0 }]]
+    },
+    "Transcribe / Read Transcript": {
+      "main": [[{ "node": "Extract Account Info", "type": "main", "index": 0 }]]
+    },
+    "Extract Account Info": {
+      "main": [[{ "node": "Generate Retell Agent Spec", "type": "main", "index": 0 }]]
+    },
+    "Generate Retell Agent Spec": {
+      "main": [[{ "node": "Save v1 Outputs", "type": "main", "index": 0 }]]
+    },
+    "Save v1 Outputs": {
+      "main": [[{ "node": "Apply Onboarding Updates", "type": "main", "index": 0 }]]
+    },
+    "Apply Onboarding Updates": {
+      "main": [[{ "node": "Generate v2 Agent Spec", "type": "main", "index": 0 }]]
+    },
+    "Generate v2 Agent Spec": {
+      "main": [[{ "node": "Generate Diff Report", "type": "main", "index": 0 }]]
+    },
+    "Generate Diff Report": {
+      "main": [[{ "node": "Pipeline Complete", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "clara-automation",
+      "createdAt": "2026-03-04T00:00:00.000Z",
+      "updatedAt": "2026-03-04T00:00:00.000Z"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2026-03-04T00:00:00.000Z",
+  "versionId": "2"
+}

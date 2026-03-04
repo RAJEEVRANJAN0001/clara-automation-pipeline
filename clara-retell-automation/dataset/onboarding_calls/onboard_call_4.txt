@@ -1,0 +1,43 @@
+ONBOARDING CALL TRANSCRIPT — Apex Electrical Solutions (Update)
+
+Agent: Hi, this is Clara from the setup team. We're doing the onboarding call for Apex Electrical Solutions. I have your demo call information. Let's go through updates.
+
+Client: Hey Clara. Yes, we have quite a few changes. Business has been growing fast.
+
+Agent: Good to hear. Let's start with business hours — Monday through Friday, 7:30 AM to 5:30 PM Mountain Time?
+
+Client: We've expanded. We're now Monday through Saturday. Monday through Friday stays 7:30 AM to 5:30 PM. Saturday is new, 8 AM to 3 PM. Same timezone, Mountain.
+
+Agent: Updated. Address still 321 Volt Avenue, Phoenix, AZ?
+
+Client: We actually moved. New address is 500 Circuit Boulevard, Phoenix, AZ. Please update that.
+
+Agent: Done. Services — I have panel upgrades, wiring, lighting, EV charger, generator, commercial maintenance, code inspections, and surge protection.
+
+Client: We've added solar panel electrical integration — we don't install panels ourselves but we do all the electrical hookup and inverter work. Also, we just started offering smart home wiring — network, home automation, that kind of thing. And whole-house rewiring for older homes.
+
+Agent: Great. Emergency definitions — power outages in commercial buildings, sparking outlets or panels, burning smells, and exposed live wires?
+
+Client: Add electrical fire aftermath to that list. Even if the fire is out, if there's electrical damage, we treat it as an emergency. Also, adding complete loss of power to a residential home during extreme heat since we're in Arizona and that's dangerous.
+
+Agent: Noted. Emergency routing — on-call electrician at 555-0456, backup at 555-0457?
+
+Client: Primary stays the same. But we replaced the backup. New backup number is 555-0460. And we want to change the callback guarantee from 15 minutes to 10 minutes.
+
+Agent: Updated. Business hours call routing?
+
+Client: We restructured. New service requests now go to extension 310 instead of 301. Existing project inquiries are still at 302. We added a new commercial projects line at extension 305. Billing moved from 303 to 308. And we now have an EV charger hotline at extension 309 since that's become such a big part of our business.
+
+Agent: Got it. FieldEdge still the primary system?
+
+Client: Yes, everything through FieldEdge still. But we've added a secondary system just for solar projects called Aurora Solar. Solar-related electrical work should be noted separately so our team knows to also log it in Aurora.
+
+Agent: Understood. Any other notes?
+
+Client: We now offer free electrical safety inspections for first-time commercial clients. Mention that when a commercial caller asks about our services. Also, we now accept emergency calls for residential customers after hours too, not just commercial.
+
+Agent: All noted. Anything else?
+
+Client: That's it. Thanks, Clara. Great call.
+
+Agent: Thank you! Updated agent coming your way soon.

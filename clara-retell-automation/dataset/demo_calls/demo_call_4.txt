@@ -1,0 +1,37 @@
+DEMO CALL TRANSCRIPT — Apex Electrical Solutions
+
+Agent: Apex Electrical Solutions, this is Robert. How can I help you today?
+
+Caller: Hi Robert. I'm calling on behalf of a commercial property management firm. We're looking for an electrical contractor to partner with.
+
+Agent: Great to hear. Apex Electrical Solutions has been in business for 12 years, serving the Phoenix, AZ area. We handle both residential and commercial electrical work.
+
+Caller: What services do you offer?
+
+Agent: We do electrical panel upgrades, wiring and rewiring, lighting installation — both indoor and outdoor — EV charger installation, generator installation and repair, commercial electrical maintenance, code compliance inspections, and surge protection. We're fully licensed and insured.
+
+Caller: What are your operating hours?
+
+Agent: We're open Monday through Friday, 7:30 AM to 5:30 PM Mountain Time. Our office is at 321 Volt Avenue, Phoenix, AZ.
+
+Caller: Do you offer emergency services?
+
+Agent: Yes. Electrical emergencies can be life-threatening, so we take them very seriously. Emergencies for us include power outages in commercial buildings, sparking outlets or panels, burning smell from electrical systems, and exposed live wires. Any of these will get routed immediately to our emergency dispatch line. The on-call electrician is reached at 555-0456. If they don't answer, it goes to the emergency backup line at 555-0457. If neither picks up, we collect the caller's name, phone number, and address, and guarantee a callback within 15 minutes. We also advise the caller to contact 911 if there's immediate danger.
+
+Caller: That's thorough. What about regular calls during business hours?
+
+Agent: During business hours, our receptionist answers, collects the caller's name and phone number, determines the type of service needed, and transfers accordingly. New service requests go to scheduling at extension 301. Existing project inquiries go to project management at extension 302. Billing goes to extension 303. If a transfer fails, we let the caller know someone will reach out within one hour.
+
+Caller: What about after hours, non-emergency?
+
+Agent: We take a detailed message — name, phone, description of the issue — and call them back the next business day, first thing in the morning. We prioritize callbacks in the order they were received.
+
+Caller: Any software systems we should know about?
+
+Agent: We use FieldEdge for dispatching, scheduling, and invoicing. All work orders must be created through FieldEdge. No manual or off-system entries. It integrates with our accounting and customer tracking.
+
+Caller: Perfect. This is very helpful, Robert. I'll discuss with my team and reach out soon.
+
+Agent: Fantastic. We'd be glad to work together. Just call us anytime.
+
+Caller: Will do. Thanks!

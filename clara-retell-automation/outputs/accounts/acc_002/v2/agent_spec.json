@@ -1,0 +1,318 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "agent_name": "Sunshine HVAC Services Assistant",
+  "version": "v2",
+  "metadata": {
+    "pipeline_version": "2.0.0",
+    "generated_at": "2026-03-04T19:42:53Z",
+    "account_id": "acc_002",
+    "extraction_confidence": {
+      "company_name": 100,
+      "business_hours": 80,
+      "office_address": 100,
+      "services_supported": 100,
+      "emergency_definition": 100,
+      "emergency_routing_rules": 60,
+      "callback_guarantee": 100,
+      "call_transfer_rules": 66,
+      "integration_constraints": 20,
+      "overall": 80
+    }
+  },
+  "response_engine": {
+    "type": "conversation-flow",
+    "version": 0,
+    "conversation_flow_id": "conversation_flow_296df8a99063"
+  },
+  "language": "en-US",
+  "data_storage_setting": "everything",
+  "opt_in_signed_url": false,
+  "is_published": false,
+  "post_call_analysis_model": "gpt-4.1-mini",
+  "pii_config": {
+    "mode": "post_call",
+    "categories": []
+  },
+  "voice_id": "Retell-Cimo",
+  "voice_style": "friendly",
+  "max_call_duration_ms": 3600000,
+  "interruption_sensitivity": 0.9,
+  "allow_user_dtmf": true,
+  "user_dtmf_options": {},
+  "variables": {
+    "business_hours": {
+      "days": "Monday through Saturday",
+      "start": "08:00",
+      "end": "18:00",
+      "timezone": "EST",
+      "saturday": null
+    },
+    "company_name": "Sunshine HVAC Services",
+    "office_address": "456 Palm Avenue, Tampa, FL",
+    "emergency_routing": {
+      "primary_contact": "Tom",
+      "primary_phone": "555-0234",
+      "backup_phone": "",
+      "callback_guarantee_minutes": 15,
+      "special_instructions": ""
+    }
+  },
+  "call_transfer_protocol": "Transfer emergency calls to on-call technician immediately. If transfer fails, collect caller info and guarantee callback.",
+  "fallback_protocol": "If transfer fails: apologize, collect name, phone number, and address. Assure the caller someone will call back within the guaranteed timeframe.",
+  "conversationFlow": {
+    "conversation_flow_id": "conversation_flow_296df8a99063",
+    "version": 0,
+    "global_prompt": "You are the phone receptionist for Sunshine HVAC Services.\n\nYour job is to:\n\u2022 Greet callers professionally\n\u2022 Understand the caller's issue\n\u2022 Collect the caller's name and phone number\n\u2022 Determine whether the issue is an emergency\n\u2022 Route the call according to the rules\n\nCompany Information:\n- Company: Sunshine HVAC Services\n- Address: 456 Palm Avenue, Tampa, FL\n- Business Hours: Monday through Saturday, 08:00 to 18:00 EST\n- Services: ac installation and repair, furnace maintenance, duct cleaning, thermostat installation, indoor air quality assessments, commercial hvac servicing, seasonal tune-ups for heating and cooling systems, heat pump installation, a new extension, a free first-time consultation for new customers\n\nEmergency Definitions:\nThe following situations are considered emergencies: complete ac failure during extreme heat, gas smell from furnace, carbon monoxide detector alerts, no heating during a cold snap, refrigerant leaks\n\nDuring business hours:\n- Greet the caller warmly and professionally\n- Ask how you can help\n- Collect the caller's name and phone number\n- Determine the type of service needed\n- Transfer the call to the appropriate department\n- If transfer fails, reassure the caller and promise a callback\n\nAfter business hours:\n- Greet the caller\n- Determine if the issue is an emergency\n- If emergency: collect name, phone number, and address immediately\n- Attempt to transfer to the on-call technician\n- If transfer fails: assure the caller someone will call them back shortly\n- If not an emergency: take a message with name, phone, and description\n- Let them know someone will reach out the next business day\n\nImportant Rules:\n- Keep questions minimal and professional\n- Only collect information needed for routing and dispatch\n- Never mention internal systems, tools, or function calls to the caller\n- Always end by asking if the caller needs anything else\n- Be empathetic and reassuring, especially during emergencies\n\nCallback Guarantee: When a transfer fails or a non-emergency after-hours call is received, assure the caller that someone will call them back within 15 minutes.\n\nIntegration Constraints:\n- Primary system: Housecall Pro\n\nAdditional Notes: Auto-extracted from demo call transcript for Sunshine HVAC Services. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | offer heat pump installation and repair, and we started doing mini-split system installations. Those are getting very popular | we now offer a free first-time consultation for new customers. If a caller is a new customer asking about HVAC service for the first time, let them know the initial assessment is free. Just get their appointment booked | a free first-time consultation for new customers",
+    "nodes": [
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Hello, thank you for calling Sunshine HVAC Services. How may I help you today?"
+        },
+        "name": "Greeting",
+        "edges": [
+          {
+            "destination_node_id": "node-extract-82615dc0",
+            "id": "edge-greet-efade09b",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Continue"
+            }
+          }
+        ],
+        "start_speaker": "agent",
+        "id": "start-node-1ad2cef0f5",
+        "type": "conversation",
+        "display_position": {
+          "x": -220,
+          "y": -670
+        }
+      },
+      {
+        "variables": [
+          {
+            "name": "caller_name",
+            "description": "The name of the person calling.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "caller_phone",
+            "description": "The phone number of the caller so the company can call them back.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "problem_description",
+            "description": "A short description of the problem or reason the caller is contacting the company.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "is_emergency",
+            "description": "Whether the caller's problem is an emergency such as complete ac failure during extreme heat, gas smell from furnace, carbon monoxide detector alerts, no heating during a cold snap, refrigerant leaks.",
+            "type": "boolean",
+            "choices": []
+          },
+          {
+            "name": "caller_address",
+            "description": "The address of the caller, collected for emergency dispatch.",
+            "type": "string",
+            "choices": []
+          }
+        ],
+        "else_edge": {
+          "destination_node_id": "node-non-emerg-04fc0991",
+          "id": "node-extract-82615dc0-else-edge",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Else"
+          }
+        },
+        "name": "Extract Variables",
+        "edges": [
+          {
+            "id": "edge-extract-7088bf3f",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-extract-82615dc0",
+        "type": "extract_dynamic_variables",
+        "display_position": {
+          "x": 5,
+          "y": -275
+        }
+      },
+      {
+        "name": "Logic Split",
+        "edges": [
+          {
+            "destination_node_id": "node-emerg-conv-9f8886ca",
+            "id": "edge-branch-0f142384",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "is_emergency == true"
+            }
+          }
+        ],
+        "id": "node-branch-fd1f15f4",
+        "else_edge": {
+          "destination_node_id": "node-non-emerg-04fc0991",
+          "id": "edge-branch-else-d7c76784",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Else"
+          }
+        },
+        "type": "branch",
+        "display_position": {
+          "x": 170,
+          "y": -733
+        }
+      },
+      {
+        "name": "Emergency Conversation",
+        "edges": [
+          {
+            "destination_node_id": "node-transfer-f9d692c3",
+            "id": "edge-emerg-94f62569",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Please hold while I connect you to our emergency technician."
+            }
+          }
+        ],
+        "id": "node-emerg-conv-9f8886ca",
+        "type": "conversation",
+        "display_position": {
+          "x": 370,
+          "y": -390
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "This sounds like an emergency. Let me collect your address and connect you to our technician immediately."
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+15550234"
+        },
+        "edge": {
+          "destination_node_id": "node-fail-conv-65612ea4",
+          "id": "edge-transfer-1bcecb1b",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "name": "Transfer Call",
+        "ignore_e164_validation": false,
+        "id": "node-transfer-f9d692c3",
+        "transfer_option": {
+          "type": "cold_transfer",
+          "show_transferee_as_caller": false,
+          "enable_bridge_audio_cue": true
+        },
+        "type": "transfer_call",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 580,
+          "y": -677
+        }
+      },
+      {
+        "name": "Transfer Failed",
+        "edges": [
+          {
+            "destination_node_id": "node-end-fail-b24ecc90",
+            "id": "edge-fail-9e69b47b",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Thank you for calling. We will get back to you shortly."
+            }
+          }
+        ],
+        "id": "node-fail-conv-65612ea4",
+        "type": "conversation",
+        "display_position": {
+          "x": 385,
+          "y": -60
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "I'm sorry, our technician is currently unavailable at the moment. I will make sure someone calls you back as soon as possible."
+        }
+      },
+      {
+        "name": "End Call (Emergency Fail)",
+        "id": "node-end-fail-b24ecc90",
+        "type": "end",
+        "speak_during_execution": true,
+        "display_position": {
+          "x": 830,
+          "y": -163
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Thank you for calling. We will get back to you shortly."
+        }
+      },
+      {
+        "name": "Non-Emergency Handling",
+        "edges": [
+          {
+            "destination_node_id": "node-end-nonemerg-9d4e6786",
+            "id": "edge-nonemerg-9a649a7d",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Caller has been helped or message taken."
+            }
+          }
+        ],
+        "id": "node-non-emerg-04fc0991",
+        "type": "conversation",
+        "display_position": {
+          "x": -50,
+          "y": 100
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Thank you for letting me know. Let me collect your information so we can assist you. May I have your name and phone number?"
+        }
+      },
+      {
+        "name": "End Call",
+        "id": "node-end-nonemerg-9d4e6786",
+        "type": "end",
+        "display_position": {
+          "x": 300,
+          "y": 300
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Thank you for calling. Is there anything else I can help you with? Have a great day!"
+        }
+      }
+    ],
+    "start_node_id": "start-node-1ad2cef0f5",
+    "start_speaker": "agent",
+    "model_choice": {
+      "type": "cascading",
+      "model": "gpt-4.1"
+    },
+    "tool_call_strict_mode": true,
+    "knowledge_base_ids": [],
+    "kb_config": {
+      "top_k": 3,
+      "filter_score": 0.6
+    },
+    "is_published": false,
+    "is_transfer_cf": false
+  }
+}

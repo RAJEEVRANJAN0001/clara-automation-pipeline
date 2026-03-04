@@ -1,0 +1,27 @@
+# docker-compose.yml — One-command n8n setup for Clara pipeline
+# Usage: docker-compose up -d  (then open http://localhost:5678)
+#
+# Import the workflow:
+#   1. Open http://localhost:5678
+#   2. Go to Settings → Import Workflow
+#   3. Upload workflows/n8n_pipeline.json
+
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: clara-n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_SECURE_COOKIE=false          # Allow HTTP access on localhost
+      - N8N_BASIC_AUTH_ACTIVE=false       # No auth for local dev
+      - GENERIC_TIMEZONE=America/New_York
+    volumes:
+      - n8n_data:/home/node/.n8n         # Persist workflows between restarts
+      - ./workflows:/home/node/workflows  # Mount workflow exports
+
+volumes:
+  n8n_data:

@@ -1,0 +1,37 @@
+DEMO CALL TRANSCRIPT — Sunshine HVAC Services
+
+Agent: Good afternoon, Sunshine HVAC Services, this is Mike. How can I assist you?
+
+Caller: Hi Mike, I'm calling to learn about your company and what services you provide. We're looking for a reliable HVAC contractor.
+
+Agent: Great, happy to fill you in. Sunshine HVAC has been operating in the Tampa Bay area for about 10 years. We specialize in heating, ventilation, and air conditioning services.
+
+Caller: What specific services do you offer?
+
+Agent: We handle AC installation and repair, furnace maintenance, duct cleaning, thermostat installation, indoor air quality assessments, and commercial HVAC servicing. We also do seasonal tune-ups for both heating and cooling systems.
+
+Caller: What are your hours of operation?
+
+Agent: Our office is open Monday through Saturday, from 8 AM to 6 PM Eastern Time. We're located at 456 Palm Avenue, Tampa, FL.
+
+Caller: Do you offer emergency services?
+
+Agent: We do. For emergencies — and by that we mean complete AC failure during extreme heat, gas smell from furnace, carbon monoxide detector alerts, or no heating during a cold snap — we have an on-call technician available after hours and on Sundays. The emergency line goes to our lead tech, Tom, at 555-0234. If Tom doesn't pick up, it routes to our backup tech. If no one answers, we collect the caller's name, phone number, and address, and guarantee someone calls back within 20 minutes.
+
+Caller: What about non-emergency calls outside of hours?
+
+Agent: We take a message, get their contact info, and call them back first thing the next business day. We're pretty strict about not dispatching for non-emergencies after hours to keep costs reasonable.
+
+Caller: During business hours, what's the call flow?
+
+Agent: During business hours, our receptionist answers, asks how they can help, collects name and phone number up front. If it's a new service request, we transfer to scheduling at extension 200. For existing appointments or follow-ups, extension 201. For billing, extension 202. If a transfer fails, we apologize and let them know the team will call them back within 30 minutes.
+
+Caller: Do you use any specific software we should know about?
+
+Agent: We use Housecall Pro for scheduling and dispatch. All job entries should go through Housecall Pro. We ask that no one creates manual jobs outside the system. It helps us keep track of everything.
+
+Caller: Perfect. This is really helpful. I'll be reaching out soon to set things up.
+
+Agent: Sounds great! We look forward to working with you. Have a good day.
+
+Caller: Thanks, Mike. Bye.

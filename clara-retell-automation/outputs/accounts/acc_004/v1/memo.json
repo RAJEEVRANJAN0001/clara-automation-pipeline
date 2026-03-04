@@ -1,0 +1,71 @@
+{
+  "account_id": "acc_004",
+  "company_name": "Apex Electrical Solutions",
+  "business_hours": {
+    "days": "Monday through Friday",
+    "start": "07:30",
+    "end": "17:30",
+    "timezone": "MST",
+    "saturday": null
+  },
+  "office_address": "321 Volt Avenue, Phoenix, AZ",
+  "services_supported": [
+    "electrical panel upgrades",
+    "wiring and rewiring",
+    "lighting installation",
+    "ev charger installation",
+    "generator installation and repair",
+    "commercial electrical maintenance",
+    "code compliance inspections",
+    "surge protection"
+  ],
+  "emergency_definition": [
+    "power outages in commercial buildings",
+    "sparking outlets or panels",
+    "burning smell from electrical systems",
+    "exposed live wires"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": "",
+    "primary_phone": "555-0456",
+    "backup_phone": "555-0457",
+    "callback_guarantee_minutes": 15,
+    "special_instructions": "Advise caller to contact 911 if immediate danger."
+  },
+  "non_emergency_routing_rules": {
+    "during_hours": "Collect name and phone number, determine service type, and transfer or schedule.",
+    "after_hours": "Take message with name, phone, and description. Call back next business day.",
+    "extensions": {
+      "new service requests go to scheduling": "ext 301",
+      "existing project inquiries go to project management": "ext 302",
+      "billing goes to": "ext 303"
+    }
+  },
+  "call_transfer_rules": {
+    "max_rings_before_fallback": null,
+    "transfer_timeout_action": "Callback within 15 minutes",
+    "transfer_fail_protocol": "we let the caller know someone will reach out within one hour"
+  },
+  "integration_constraints": [
+    "Primary system: FieldEdge"
+  ],
+  "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
+  "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
+  "questions_or_unknowns": [
+    "On-call contact name not identified \u2014 confirm emergency contact person.",
+    "Low confidence extraction for 'Integration Constraints' \u2014 verify with client."
+  ],
+  "notes": "Auto-extracted from demo call transcript for Apex Electrical Solutions. Confidence scores are per-field estimates; fields below 60% should be verified with the client.",
+  "extraction_confidence": {
+    "company_name": 100,
+    "business_hours": 80,
+    "office_address": 100,
+    "services_supported": 100,
+    "emergency_definition": 80,
+    "emergency_routing_rules": 80,
+    "callback_guarantee": 100,
+    "call_transfer_rules": 66,
+    "integration_constraints": 20,
+    "overall": 80
+  }
+}

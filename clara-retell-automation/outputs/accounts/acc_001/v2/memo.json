@@ -1,0 +1,72 @@
+{
+  "account_id": "acc_001",
+  "company_name": "ABC Plumbing",
+  "business_hours": {
+    "days": "Monday through Friday",
+    "start": "08:00",
+    "end": "18:00",
+    "timezone": "EST",
+    "saturday": null
+  },
+  "office_address": "123 Main Street, Springfield, IL",
+  "services_supported": [
+    "pipe repair",
+    "water heater installation and repair",
+    "drain cleaning",
+    "sewer line inspection",
+    "fixture installation",
+    "toilet repair",
+    "water filtration system installation",
+    "bathroom remodeling as a service"
+  ],
+  "emergency_definition": [
+    "pipe burst",
+    "gas leak",
+    "sewage backup",
+    "major water leak",
+    "frozen pipe situations"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": "",
+    "primary_phone": "555-0199",
+    "backup_phone": "555-0177",
+    "callback_guarantee_minutes": 15,
+    "special_instructions": ""
+  },
+  "non_emergency_routing_rules": {
+    "during_hours": "Collect name and phone number, determine service type, and transfer or schedule.",
+    "after_hours": "Take message with name, phone, and description. Call back next business day.",
+    "extensions": {
+      "we transfer to dispatch": "ext 101",
+      "all service calls should transfer to the dispatcher": "ext 105"
+    }
+  },
+  "call_transfer_rules": {
+    "max_rings_before_fallback": 3,
+    "transfer_timeout_action": "Callback within 30 minutes",
+    "transfer_fail_protocol": "we let the caller know someone will call them back within the hour"
+  },
+  "integration_constraints": [
+    "sprinkler-related jobs in ServiceTrade",
+    "Primary system: ServiceTrade",
+    "backflow testing jobs in ServiceTrade"
+  ],
+  "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
+  "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
+  "questions_or_unknowns": [
+    "On-call contact name not identified \u2014 confirm emergency contact person."
+  ],
+  "notes": "Auto-extracted from demo call transcript for ABC Plumbing. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | added Saturday hours from 9 AM to 1 PM. Same timezone, Eastern | do water filtration system installation and tankless water heater installation. Also, we've started offering bathroom remodeling as a service | though \u2014 we also don't want anyone creating backflow testing jobs in ServiceTrade. Those go through a separate certification system |  We've hired a dedicated dispatcher, so during business hours, all service calls should transfer to the dispatcher at extension 105 instead of the general dispatch at 101. Billing is still 102",
+  "extraction_confidence": {
+    "company_name": 100,
+    "business_hours": 80,
+    "office_address": 100,
+    "services_supported": 100,
+    "emergency_definition": 100,
+    "emergency_routing_rules": 60,
+    "callback_guarantee": 100,
+    "call_transfer_rules": 100,
+    "integration_constraints": 60,
+    "overall": 88
+  }
+}

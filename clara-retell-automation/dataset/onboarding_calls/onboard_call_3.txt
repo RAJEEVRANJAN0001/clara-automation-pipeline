@@ -1,0 +1,43 @@
+ONBOARDING CALL TRANSCRIPT — GreenLeaf Landscaping (Update)
+
+Agent: Hello, this is Clara with the setup team. I'm calling for the GreenLeaf Landscaping onboarding. I have the initial information from your demo call. Any updates?
+
+Client: Hi Clara. Yes, we've got several updates to share.
+
+Agent: Let's go through them. Business hours — I have Monday through Friday, 7 AM to 4 PM Eastern.
+
+Client: We've extended our hours. We're now Monday through Friday, 7 AM to 5 PM, and we've added Saturday service from 8 AM to 12 PM noon. It's peak season and we need the extra time.
+
+Agent: Updated. Address still 789 Green Way Drive, Charlotte, NC?
+
+Client: Yes, same.
+
+Agent: Services — lawn maintenance, landscape design, tree trimming and removal, irrigation install and repair, seasonal plantings, mulching, hardscape, and HOA maintenance contracts. I also had a note you don't do snow removal.
+
+Client: Actually, we've started offering snow removal for our commercial clients. Plowing and salting for parking lots and walkways. For residential we still don't do snow removal though. Also, we added outdoor lighting installation to our service list.
+
+Agent: Great. Emergency definitions — fallen trees blocking roads, major irrigation line breaks, and storm damage?
+
+Client: Add large branch hanging dangerously over a structure as an emergency. We've been getting more of those calls. And also, standing water due to failed drainage should be treated as urgent.
+
+Agent: Got it. Emergency routing still to Carlos at 555-0345?
+
+Client: Carlos has been promoted to GM. Emergency calls now go to our new operations lead, Maria, at 555-0360. Backup is still the crew lead. But we want a callback guarantee of 30 minutes, that stays the same. One change though — for storm damage specifically, we want to route directly to our storm response team at 555-0361 first, then fall back to Maria.
+
+Agent: Noted. Regular calls during business hours?
+
+Client: Same setup. Scheduling at extension 10. But we added a new extension for commercial clients — extension 12. If a caller identifies as a commercial or HOA client, route to 12 instead of 10.
+
+Agent: And Jobber for scheduling?
+
+Client: Yes, still using Jobber. No off-system entries. That hasn't changed.
+
+Agent: Any other notes?
+
+Client: Yes. We now offer free estimates for any project over 500 dollars. Mention that to callers who are asking about new landscape design or hardscape work.
+
+Agent: Added. Anything else?
+
+Client: That's everything. Thanks, Clara!
+
+Agent: You're welcome. We'll update the agent configuration right away.

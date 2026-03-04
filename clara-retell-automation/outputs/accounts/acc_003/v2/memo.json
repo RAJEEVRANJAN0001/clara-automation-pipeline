@@ -1,0 +1,74 @@
+{
+  "account_id": "acc_003",
+  "company_name": "GreenLeaf Landscaping",
+  "business_hours": {
+    "days": "Monday through Friday",
+    "start": "07:00",
+    "end": "16:00",
+    "timezone": "EST",
+    "saturday": null
+  },
+  "office_address": "789 Green Way Drive, Charlotte, NC",
+  "services_supported": [
+    "lawn maintenance",
+    "landscape design and installation",
+    "tree trimming and removal",
+    "irrigation system installation and repair",
+    "seasonal plantings",
+    "mulching",
+    "hardscape work like patios and retaining walls",
+    "weekly and bi-weekly maintenance contracts",
+    "outdoor lighting installation to our service list",
+    "a new extension for commercial clients \u2014 extension 12",
+    "free estimates for any project over 500 dollars",
+    "snow removal for our commercial clients"
+  ],
+  "emergency_definition": [
+    "fallen trees blocking driveways or roads",
+    "major irrigation line breaks",
+    "storm damage to landscape structures",
+    "large branch hanging dangerously over a structure"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": "Carlos",
+    "primary_phone": "555-0345",
+    "backup_phone": "",
+    "callback_guarantee_minutes": 45,
+    "special_instructions": ""
+  },
+  "non_emergency_routing_rules": {
+    "during_hours": "Collect name and phone number, determine service type, and transfer or schedule.",
+    "after_hours": "Take message with name, phone, and description. Call back next business day.",
+    "extensions": {
+      "s information and either help them directly or transfer to the scheduling team": "ext 10"
+    }
+  },
+  "call_transfer_rules": {
+    "max_rings_before_fallback": null,
+    "transfer_timeout_action": "Callback within 45 minutes",
+    "transfer_fail_protocol": ""
+  },
+  "integration_constraints": [
+    "jobs created outside the system because it throws off crew schedules",
+    "Primary system: Jobber"
+  ],
+  "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
+  "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
+  "questions_or_unknowns": [
+    "Transfer failure protocol unclear \u2014 confirm fallback when call transfer fails.",
+    "Low confidence extraction for 'Call Transfer Rules' \u2014 verify with client."
+  ],
+  "notes": "Auto-extracted from demo call transcript for GreenLeaf Landscaping. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | had a note you don't do snow removal | , we added outdoor lighting installation to our service list | , standing water due to failed drainage should be treated as urgent | free estimates for any project over 500 dollars | to callers who are asking about new landscape design or hardscape work",
+  "extraction_confidence": {
+    "company_name": 100,
+    "business_hours": 80,
+    "office_address": 100,
+    "services_supported": 100,
+    "emergency_definition": 80,
+    "emergency_routing_rules": 60,
+    "callback_guarantee": 100,
+    "call_transfer_rules": 33,
+    "integration_constraints": 40,
+    "overall": 77
+  }
+}

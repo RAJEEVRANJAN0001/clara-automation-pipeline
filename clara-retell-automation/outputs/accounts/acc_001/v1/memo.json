@@ -1,0 +1,67 @@
+{
+  "account_id": "acc_001",
+  "company_name": "ABC Plumbing",
+  "business_hours": {
+    "days": "Monday through Friday",
+    "start": "09:00",
+    "end": "17:00",
+    "timezone": "EST",
+    "saturday": null
+  },
+  "office_address": "123 Main Street, Springfield, IL",
+  "services_supported": [
+    "pipe repair",
+    "water heater installation and repair",
+    "drain cleaning",
+    "sewer line inspection",
+    "fixture installation",
+    "toilet repair"
+  ],
+  "emergency_definition": [
+    "pipe burst",
+    "gas leak",
+    "sewage backup",
+    "major water leak"
+  ],
+  "emergency_routing_rules": {
+    "primary_contact": "",
+    "primary_phone": "555-0199",
+    "backup_phone": "",
+    "callback_guarantee_minutes": 30,
+    "special_instructions": ""
+  },
+  "non_emergency_routing_rules": {
+    "during_hours": "Collect name and phone number, determine service type, and transfer or schedule.",
+    "after_hours": "Take message with name, phone, and description. Call back next business day.",
+    "extensions": {
+      "we transfer to dispatch": "ext 101"
+    }
+  },
+  "call_transfer_rules": {
+    "max_rings_before_fallback": 3,
+    "transfer_timeout_action": "Callback within 30 minutes",
+    "transfer_fail_protocol": "we let the caller know someone will call them back within the hour"
+  },
+  "integration_constraints": [
+    "sprinkler-related jobs in ServiceTrade",
+    "Primary system: ServiceTrade"
+  ],
+  "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
+  "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
+  "questions_or_unknowns": [
+    "On-call contact name not identified \u2014 confirm emergency contact person."
+  ],
+  "notes": "Auto-extracted from demo call transcript for ABC Plumbing. Confidence scores are per-field estimates; fields below 60% should be verified with the client.",
+  "extraction_confidence": {
+    "company_name": 100,
+    "business_hours": 80,
+    "office_address": 100,
+    "services_supported": 100,
+    "emergency_definition": 80,
+    "emergency_routing_rules": 40,
+    "callback_guarantee": 100,
+    "call_transfer_rules": 100,
+    "integration_constraints": 40,
+    "overall": 82
+  }
+}

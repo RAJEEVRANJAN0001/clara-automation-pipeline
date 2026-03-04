@@ -1,0 +1,39 @@
+DEMO CALL TRANSCRIPT — ClearView Pest Control
+
+Agent: Good morning, ClearView Pest Control. This is Amanda. How can I help you?
+
+Caller: Hi Amanda. I'm a facility manager for a chain of restaurants and we're looking for a pest control partner. Can you tell me about your company?
+
+Agent: Absolutely. ClearView Pest Control has been operating for 6 years in the Atlanta, GA area. We specialize in both residential and commercial pest control services.
+
+Caller: What kind of pest services do you handle?
+
+Agent: We offer general pest control — ants, roaches, spiders — termite inspection and treatment, rodent control, mosquito treatment, bed bug treatment, wildlife removal and exclusion, and commercial kitchen pest management, which is probably most relevant for your restaurants. We also offer recurring monthly and quarterly maintenance plans.
+
+Caller: That's exactly what we need. What are your office hours?
+
+Agent: We're open Monday through Friday, 8 AM to 5 PM Eastern Time, and Saturdays from 9 AM to 1 PM. Our office is at 555 Peachtree Lane, Atlanta, GA.
+
+Caller: Do you handle pest emergencies?
+
+Agent: We do. For us, emergencies include active rodent infestations in food service areas, termite swarms inside a building, wasp or bee nests near entrances or occupied spaces, and any wildlife incursion like raccoons or possums inside a building. For emergencies, we route to our field supervisor, Derek, at 555-0567. If Derek is unavailable, it goes to our backup line at 555-0568. If we can't reach anyone, we take the caller's name, phone number, address, and a description of the situation. We commit to a callback within 30 minutes and try to dispatch someone within 2 hours.
+
+Caller: What about non-emergency calls?
+
+Agent: During business hours, we answer calls, collect the caller's name and phone number, determine the type of service or issue, and either schedule an appointment right then or transfer to the appropriate team. Service scheduling is extension 50. Existing account inquiries are extension 51. Billing is extension 52. If a transfer fails, we assure the caller someone will call back within 45 minutes.
+
+Caller: After hours?
+
+Agent: For non-emergencies, we take a message with name, phone number, and the issue. We guarantee a callback by 9 AM the next business day. We always confirm on the call that they'll hear from us first thing.
+
+Caller: Do you use any particular software?
+
+Agent: We use PestPac for everything — scheduling, routing, treatment records, billing. All service entries and job creation has to go through PestPac. We don't use any parallel systems.
+
+Caller: Great. This sounds like a solid operation. I'll discuss with the ownership group and circle back.
+
+Agent: We'd love to partner with you, and we have lots of experience with restaurant chains. Feel free to call anytime.
+
+Caller: Thanks, Amanda. Have a good one.
+
+Agent: You too! Bye.

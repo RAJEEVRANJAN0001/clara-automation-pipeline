@@ -1,0 +1,43 @@
+ONBOARDING CALL TRANSCRIPT — ABC Plumbing (Update)
+
+Agent: Hi, thank you for joining the onboarding call. This is Clara from the setup team. I have your initial information from the demo call. I'd like to go through some updates. Is that okay?
+
+Client: Hi Clara, yes absolutely. We've had a few changes since our last call.
+
+Agent: Great. Let's start with business hours. Are those still Monday through Friday, 9 to 5?
+
+Client: Actually, we've extended our hours. We're now open Monday through Friday, 8 AM to 6 PM, and we also added Saturday hours from 9 AM to 1 PM. Same timezone, Eastern.
+
+Agent: Got it. Updated. Any changes to your office address?
+
+Client: No, still 123 Main Street, Springfield, IL.
+
+Agent: How about your services? Previously we had pipe repair, water heater, drain cleaning, sewer line inspection, faucet and fixture installation, toilet repair, and commercial plumbing.
+
+Client: We've added a couple of new services. We now also do water filtration system installation and tankless water heater installation. Also, we've started offering bathroom remodeling as a service.
+
+Agent: Excellent. Adding those. Any changes to your emergency definitions?
+
+Client: Yes, we want to add frozen pipe situations to our emergency list. So it's now pipe burst, gas leak, sewage backup, major water leak, and frozen pipes.
+
+Agent: Noted. And the emergency routing — still the same on-call tech at 555-0199 with the backup?
+
+Client: Same primary on-call tech, but we have a new backup number. The backup is now 555-0177. And we want to reduce the callback guarantee from 30 minutes to 15 minutes for emergencies.
+
+Agent: Updated. How about the non-emergency after-hours flow?
+
+Client: No changes there. We still take messages and call back the next business day.
+
+Agent: The ServiceTrade constraint — never create sprinkler jobs there?
+
+Client: That still stands. One additional thing though — we also don't want anyone creating backflow testing jobs in ServiceTrade. Those go through a separate certification system.
+
+Agent: Got it. Any other notes or changes?
+
+Client: One more thing. We've hired a dedicated dispatcher, so during business hours, all service calls should transfer to the dispatcher at extension 105 instead of the general dispatch at 101. Billing is still 102.
+
+Agent: Perfect. Updated the routing. Is there anything else?
+
+Client: That covers everything. Thanks, Clara. This was quick and easy.
+
+Agent: Happy to help! We'll update your agent configuration and have the new version ready shortly. Have a great day!

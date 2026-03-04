@@ -1,0 +1,39 @@
+DEMO CALL TRANSCRIPT — ABC Plumbing
+
+Agent: Thank you for calling ABC Plumbing. My name is Sarah. How can I help you today?
+
+Caller: Hi Sarah, I'm looking for some information about your services. I'm a property manager and I manage several buildings in the downtown area.
+
+Agent: Of course! We'd be happy to help. ABC Plumbing has been serving the area for over 15 years. We handle a wide range of plumbing services.
+
+Caller: Great. What kind of services do you offer?
+
+Agent: We offer pipe repair, water heater installation and repair, drain cleaning, sewer line inspection, faucet and fixture installation, toilet repair, and we also handle commercial plumbing for larger buildings. We're pretty much a full-service plumbing company.
+
+Caller: That sounds good. What are your business hours?
+
+Agent: Our office is open Monday through Friday, 9 AM to 5 PM Eastern Time. Our office is located at 123 Main Street, Springfield, IL.
+
+Caller: Do you handle emergencies outside of business hours?
+
+Agent: Absolutely. We have an emergency line that's available 24/7. If there's a pipe burst, gas leak, sewage backup, or major water leak, those are considered emergencies. When you call after hours, we route emergency calls to our on-call technician. The on-call number is 555-0199. If the on-call tech doesn't answer within 3 rings, the system will try a second backup tech. If neither answers, we take the caller's information and guarantee a callback within 30 minutes.
+
+Caller: That's very responsive. What about non-emergency calls after hours?
+
+Agent: For non-emergencies after hours, we take the caller's name, phone number, and a description of the issue. We let them know someone will reach out the next business day during office hours.
+
+Caller: And during business hours, how do you route calls?
+
+Agent: During business hours, calls come into our front desk. We greet the caller, ask how we can help, collect their name and phone number, then either schedule an appointment or transfer to the right department. For service calls, we transfer to dispatch at extension 101. For billing questions, extension 102. If the transfer fails, we let the caller know someone will call them back within the hour.
+
+Caller: Is there anything I should know about your scheduling system?
+
+Agent: Yes, we use ServiceTrade for our job management. One important thing — we never create sprinkler-related jobs in ServiceTrade. Those go through a separate system. Everything else, from scheduling to invoicing, goes through ServiceTrade.
+
+Caller: Got it. This is very helpful. I think we'll set up a contract with you.
+
+Agent: Wonderful! We'd love to work with you. Should I transfer you to our accounts team?
+
+Caller: Not just yet. I'll be in touch. Thanks, Sarah.
+
+Agent: Thank you! Have a great day.

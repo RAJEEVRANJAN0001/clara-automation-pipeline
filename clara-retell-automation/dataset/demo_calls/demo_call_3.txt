@@ -1,0 +1,35 @@
+DEMO CALL TRANSCRIPT — GreenLeaf Landscaping
+
+Agent: Thank you for calling GreenLeaf Landscaping, this is Jenny speaking. How may I help you?
+
+Caller: Hi Jenny, my name is David. I'm exploring landscaping companies for our HOA and wanted to learn about your services.
+
+Agent: That's great, David. We'd love to help. GreenLeaf Landscaping has been in operation for 8 years. We serve the entire Charlotte, NC metro area.
+
+Caller: What services do you provide?
+
+Agent: We offer lawn maintenance, landscape design and installation, tree trimming and removal, irrigation system installation and repair, seasonal plantings, mulching, and hardscape work like patios and retaining walls. For commercial clients like HOAs, we also offer weekly and bi-weekly maintenance contracts.
+
+Caller: Wonderful. What are your business hours?
+
+Agent: We're open Monday through Friday, 7 AM to 4 PM Eastern Time. Our main office is at 789 Green Way Drive, Charlotte, NC.
+
+Caller: What if there's an emergency? Like storm damage?
+
+Agent: Good question. We do handle emergencies. Emergency situations for us include fallen trees blocking driveways or roads, major irrigation line breaks, and storm damage to landscape structures. For emergencies, callers should indicate it's urgent. We transfer emergency calls directly to our operations manager, Carlos, at 555-0345. If Carlos isn't available, it goes to the on-call crew lead. If no one picks up, we take the caller's name, phone number, address, and a description, and guarantee a callback within 45 minutes.
+
+Caller: What about non-urgent issues?
+
+Agent: For non-emergency calls during business hours, we collect the caller's information and either help them directly or transfer to the scheduling team at extension 10. For after-hours non-emergencies, we take a message and contact them the next business day by 9 AM.
+
+Caller: How do you manage scheduling and jobs?
+
+Agent: We use Jobber for all our scheduling, invoicing, and customer management. It's important that all job entries go through Jobber. We don't accept jobs created outside the system because it throws off crew schedules.
+
+Caller: Makes sense. One more question — do you handle snow removal?
+
+Agent: We don't currently offer snow removal services. That might change in the future, but for now we stick to landscaping and irrigation.
+
+Caller: Got it. Thank you, Jenny. I'll pass this along to the HOA board and we'll be in touch.
+
+Agent: Thank you, David! We'd love to work with your community. Have a great day.

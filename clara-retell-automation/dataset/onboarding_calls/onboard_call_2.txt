@@ -1,0 +1,43 @@
+ONBOARDING CALL TRANSCRIPT — Sunshine HVAC Services (Update)
+
+Agent: Hi, this is Clara from the setup team. We're doing the onboarding call for Sunshine HVAC Services. I have your initial demo information. Ready to go through any updates?
+
+Client: Hey Clara, yes let's do it. A few things have changed.
+
+Agent: Great. Starting with business hours — I have Monday through Saturday, 8 AM to 6 PM Eastern.
+
+Client: We actually shortened Saturday hours. Saturday is now 8 AM to 2 PM instead of all day to 6 PM. Weekdays are the same — Monday through Friday, 8 AM to 6 PM.
+
+Agent: Noted. Office address still 456 Palm Avenue, Tampa, FL?
+
+Client: Yes, same address.
+
+Agent: Services — I have AC install and repair, furnace maintenance, duct cleaning, thermostat install, air quality assessments, commercial HVAC, and seasonal tune-ups.
+
+Client: We've expanded. We now also offer heat pump installation and repair, and we started doing mini-split system installations. Those are getting very popular.
+
+Agent: Adding those. Emergency definitions — complete AC failure in extreme heat, gas smell from furnace, carbon monoxide alerts, and no heating in cold snaps.
+
+Client: Add refrigerant leaks as an emergency too. Those can be hazardous and need immediate attention.
+
+Agent: Got it. Emergency routing — on-call tech Tom at 555-0234, then backup. Still the same?
+
+Client: Tom left the company. Our new on-call tech is Jason, same number 555-0234 though because it's the company phone. But the backup number changed to 555-0250. And please update the callback guarantee to 15 minutes from 20 minutes.
+
+Agent: Updated. What about the regular call flow during business hours?
+
+Client: We've added a new extension. We now have a dedicated commercial services line at extension 205. So residential goes to 200, commercial to 205, existing appointments still 201, and billing still 202.
+
+Agent: Got it. Housecall Pro still your scheduling system with no off-system jobs?
+
+Client: Yes, still using Housecall Pro. No changes there.
+
+Agent: Any other notes?
+
+Client: One thing — we now offer a free first-time consultation for new customers. If a caller is a new customer asking about HVAC service for the first time, let them know the initial assessment is free. Just get their appointment booked.
+
+Agent: Great, added that note. Anything else?
+
+Client: Nope, that's it. Thanks, Clara!
+
+Agent: Perfect, we'll generate your updated agent shortly. Have a great day!

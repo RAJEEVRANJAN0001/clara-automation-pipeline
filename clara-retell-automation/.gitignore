@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Pipeline outputs — KEEP committed for grading/review.
+# Only ignore large binary/cache files.
+# outputs/accounts/*/v1/
+# outputs/accounts/*/v2/
+# outputs/accounts/*/diff_report.html
+# outputs/reports/
+# changelog/*.md
+
+# Task tracker data (regenerated on each run)
+outputs/task_tracker.json
+
+# Audio files (uncomment to exclude large audio from git)
+# dataset/**/*.wav
+# dataset/**/*.mp3
+# dataset/**/*.m4a
+# dataset/**/*.flac
+
+# Whisper model cache
+~/.cache/whisper/
+
+# n8n
+.n8n/
+n8n-data/
+
+# Docker
+*.env.local
+
+# Logs
+*.log
+pipeline.log

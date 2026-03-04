@@ -1,0 +1,321 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "agent_name": "ClearView Pest Control Assistant",
+  "version": "v2",
+  "metadata": {
+    "pipeline_version": "2.0.0",
+    "generated_at": "2026-03-04T19:42:53Z",
+    "account_id": "acc_005",
+    "extraction_confidence": {
+      "company_name": 100,
+      "business_hours": 100,
+      "office_address": 100,
+      "services_supported": 100,
+      "emergency_definition": 100,
+      "emergency_routing_rules": 80,
+      "callback_guarantee": 100,
+      "call_transfer_rules": 66,
+      "integration_constraints": 40,
+      "overall": 87
+    }
+  },
+  "response_engine": {
+    "type": "conversation-flow",
+    "version": 0,
+    "conversation_flow_id": "conversation_flow_852934661899"
+  },
+  "language": "en-US",
+  "data_storage_setting": "everything",
+  "opt_in_signed_url": false,
+  "is_published": false,
+  "post_call_analysis_model": "gpt-4.1-mini",
+  "pii_config": {
+    "mode": "post_call",
+    "categories": []
+  },
+  "voice_id": "Retell-Cimo",
+  "voice_style": "friendly",
+  "max_call_duration_ms": 3600000,
+  "interruption_sensitivity": 0.9,
+  "allow_user_dtmf": true,
+  "user_dtmf_options": {},
+  "variables": {
+    "business_hours": {
+      "days": "Monday through Friday",
+      "start": "08:00",
+      "end": "17:00",
+      "timezone": "EST",
+      "saturday": {
+        "start": "09:00",
+        "end": "13:00"
+      }
+    },
+    "company_name": "ClearView Pest Control",
+    "office_address": "555 Peachtree Lane, Atlanta, GA",
+    "emergency_routing": {
+      "primary_contact": "Derek",
+      "primary_phone": "555-0567",
+      "backup_phone": "555-0568",
+      "callback_guarantee_minutes": 30,
+      "special_instructions": ""
+    }
+  },
+  "call_transfer_protocol": "Transfer emergency calls to on-call technician immediately. If transfer fails, collect caller info and guarantee callback.",
+  "fallback_protocol": "If transfer fails: apologize, collect name, phone number, and address. Assure the caller someone will call back within the guaranteed timeframe.",
+  "conversationFlow": {
+    "conversation_flow_id": "conversation_flow_852934661899",
+    "version": 0,
+    "global_prompt": "You are the phone receptionist for ClearView Pest Control.\n\nYour job is to:\n\u2022 Greet callers professionally\n\u2022 Understand the caller's issue\n\u2022 Collect the caller's name and phone number\n\u2022 Determine whether the issue is an emergency\n\u2022 Route the call according to the rules\n\nCompany Information:\n- Company: ClearView Pest Control\n- Address: 555 Peachtree Lane, Atlanta, GA\n- Business Hours: Monday through Friday, 08:00 to 17:00 EST. Saturday: 09:00 to 13:00\n- Services: general pest control, termite inspection and treatment, rodent control, mosquito treatment, bed bug treatment, wildlife removal and exclusion, commercial kitchen pest management, recurring monthly and quarterly maintenance plans, two new services, crawl space encapsulation, a commercial accounts line at extension 55, a free initial pest inspection for new commercial clients, commercial fumigation services\n\nEmergency Definitions:\nThe following situations are considered emergencies: active rodent infestations in food service areas, termite swarms inside a building, wasp or bee nests near entrances or occupied spaces, wildlife incursion like raccoons or possums inside a building, venomous snake sighting on property\n\nDuring business hours:\n- Greet the caller warmly and professionally\n- Ask how you can help\n- Collect the caller's name and phone number\n- Determine the type of service needed\n- Transfer the call to the appropriate department\n- If transfer fails, reassure the caller and promise a callback\n\nAfter business hours:\n- Greet the caller\n- Determine if the issue is an emergency\n- If emergency: collect name, phone number, and address immediately\n- Attempt to transfer to the on-call technician\n- If transfer fails: assure the caller someone will call them back shortly\n- If not an emergency: take a message with name, phone, and description\n- Let them know someone will reach out the next business day\n\nImportant Rules:\n- Keep questions minimal and professional\n- Only collect information needed for routing and dispatch\n- Never mention internal systems, tools, or function calls to the caller\n- Always end by asking if the caller needs anything else\n- Be empathetic and reassuring, especially during emergencies\n\nCallback Guarantee: When a transfer fails or a non-emergency after-hours call is received, assure the caller that someone will call them back within 30 minutes.\n\nIntegration Constraints:\n- any parallel systems\n- Primary system: PestPac\n\nAdditional Notes: Auto-extracted from demo call transcript for ClearView Pest Control. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | , we've expanded our recurring plans to include annual termite bond renewals | , add severe ant infestation in a commercial kitchen \u2014 like fire ants in a restaurant kitchen needs immediate response | , for wildlife emergencies specifically, route directly to our wildlife specialist, Kevin, at 555-0575 first | a free initial pest inspection for new commercial clients | we offer compliance documentation \u2014 we provide all the paperwork needed for health inspections",
+    "nodes": [
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Hello, thank you for calling ClearView Pest Control. How may I help you today?"
+        },
+        "name": "Greeting",
+        "edges": [
+          {
+            "destination_node_id": "node-extract-fa61e65b",
+            "id": "edge-greet-af930d58",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Continue"
+            }
+          }
+        ],
+        "start_speaker": "agent",
+        "id": "start-node-49965e962d",
+        "type": "conversation",
+        "display_position": {
+          "x": -220,
+          "y": -670
+        }
+      },
+      {
+        "variables": [
+          {
+            "name": "caller_name",
+            "description": "The name of the person calling.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "caller_phone",
+            "description": "The phone number of the caller so the company can call them back.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "problem_description",
+            "description": "A short description of the problem or reason the caller is contacting the company.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "is_emergency",
+            "description": "Whether the caller's problem is an emergency such as active rodent infestations in food service areas, termite swarms inside a building, wasp or bee nests near entrances or occupied spaces, wildlife incursion like raccoons or possums inside a building, venomous snake sighting on property.",
+            "type": "boolean",
+            "choices": []
+          },
+          {
+            "name": "caller_address",
+            "description": "The address of the caller, collected for emergency dispatch.",
+            "type": "string",
+            "choices": []
+          }
+        ],
+        "else_edge": {
+          "destination_node_id": "node-non-emerg-d45515f4",
+          "id": "node-extract-fa61e65b-else-edge",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Else"
+          }
+        },
+        "name": "Extract Variables",
+        "edges": [
+          {
+            "id": "edge-extract-b386f79b",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-extract-fa61e65b",
+        "type": "extract_dynamic_variables",
+        "display_position": {
+          "x": 5,
+          "y": -275
+        }
+      },
+      {
+        "name": "Logic Split",
+        "edges": [
+          {
+            "destination_node_id": "node-emerg-conv-34dabe91",
+            "id": "edge-branch-34df05b7",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "is_emergency == true"
+            }
+          }
+        ],
+        "id": "node-branch-677d99e8",
+        "else_edge": {
+          "destination_node_id": "node-non-emerg-d45515f4",
+          "id": "edge-branch-else-8979c609",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Else"
+          }
+        },
+        "type": "branch",
+        "display_position": {
+          "x": 170,
+          "y": -733
+        }
+      },
+      {
+        "name": "Emergency Conversation",
+        "edges": [
+          {
+            "destination_node_id": "node-transfer-d5d0752b",
+            "id": "edge-emerg-2bb52faa",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Please hold while I connect you to our emergency technician."
+            }
+          }
+        ],
+        "id": "node-emerg-conv-34dabe91",
+        "type": "conversation",
+        "display_position": {
+          "x": 370,
+          "y": -390
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "This sounds like an emergency. Let me collect your address and connect you to our technician immediately."
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+15550567"
+        },
+        "edge": {
+          "destination_node_id": "node-fail-conv-9c10f26a",
+          "id": "edge-transfer-70e67861",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "name": "Transfer Call",
+        "ignore_e164_validation": false,
+        "id": "node-transfer-d5d0752b",
+        "transfer_option": {
+          "type": "cold_transfer",
+          "show_transferee_as_caller": false,
+          "enable_bridge_audio_cue": true
+        },
+        "type": "transfer_call",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 580,
+          "y": -677
+        }
+      },
+      {
+        "name": "Transfer Failed",
+        "edges": [
+          {
+            "destination_node_id": "node-end-fail-70ff6423",
+            "id": "edge-fail-69756176",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Thank you for calling. We will get back to you shortly."
+            }
+          }
+        ],
+        "id": "node-fail-conv-9c10f26a",
+        "type": "conversation",
+        "display_position": {
+          "x": 385,
+          "y": -60
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "I'm sorry, our technician is currently unavailable at the moment. I will make sure someone calls you back as soon as possible."
+        }
+      },
+      {
+        "name": "End Call (Emergency Fail)",
+        "id": "node-end-fail-70ff6423",
+        "type": "end",
+        "speak_during_execution": true,
+        "display_position": {
+          "x": 830,
+          "y": -163
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Thank you for calling. We will get back to you shortly."
+        }
+      },
+      {
+        "name": "Non-Emergency Handling",
+        "edges": [
+          {
+            "destination_node_id": "node-end-nonemerg-a8ace676",
+            "id": "edge-nonemerg-4b51996f",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Caller has been helped or message taken."
+            }
+          }
+        ],
+        "id": "node-non-emerg-d45515f4",
+        "type": "conversation",
+        "display_position": {
+          "x": -50,
+          "y": 100
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Thank you for letting me know. Let me collect your information so we can assist you. May I have your name and phone number?"
+        }
+      },
+      {
+        "name": "End Call",
+        "id": "node-end-nonemerg-a8ace676",
+        "type": "end",
+        "display_position": {
+          "x": 300,
+          "y": 300
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Thank you for calling. Is there anything else I can help you with? Have a great day!"
+        }
+      }
+    ],
+    "start_node_id": "start-node-49965e962d",
+    "start_speaker": "agent",
+    "model_choice": {
+      "type": "cascading",
+      "model": "gpt-4.1"
+    },
+    "tool_call_strict_mode": true,
+    "knowledge_base_ids": [],
+    "kb_config": {
+      "top_k": 3,
+      "filter_score": 0.6
+    },
+    "is_published": false,
+    "is_transfer_cf": false
+  }
+}

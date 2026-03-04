@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clara Retell Automation — Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          background: #f4f6f9; color: #1a1a2e; line-height: 1.5; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+             color: white; padding: 32px 40px; }
+  .header h1 { font-size: 1.8rem; font-weight: 700; }
+  .header p { opacity: 0.85; margin-top: 6px; }
+  .header-meta { display: flex; gap: 24px; margin-top: 16px; }
+  .meta-stat { background: rgba(255,255,255,0.15); border-radius: 8px;
+                padding: 10px 18px; text-align: center; }
+  .meta-stat .num { font-size: 1.6rem; font-weight: 700; }
+  .meta-stat .lbl { font-size: 0.75rem; opacity: 0.85; }
+
+  /* Main */
+  .main { max-width: 1280px; margin: 0 auto; padding: 32px 20px; }
+  section { margin-bottom: 48px; }
+  h3.section-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em;
+                       color: #667eea; margin-bottom: 20px; border-bottom: 2px solid #e2e6f0; padding-bottom: 8px; }
+
+  /* Cards */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(560px, 1fr)); gap: 24px; }
+  .card { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,.07);
+           overflow: hidden; transition: box-shadow .2s; }
+  .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+  .card-header { display: flex; align-items: flex-start; gap: 14px; padding: 22px 24px 16px;
+                  border-bottom: 1px solid #f0f2f7; }
+  .card-header h2 { font-size: 1.1rem; font-weight: 700; }
+  .industry-icon { font-size: 2rem; line-height: 1; }
+  .account-id { font-size: 0.75rem; background: #eef2ff; color: #667eea; padding: 2px 8px;
+                 border-radius: 20px; font-weight: 600; }
+  .industry-tag { font-size: 0.75rem; background: #f0fdf4; color: #16a34a; padding: 2px 8px;
+                   border-radius: 20px; font-weight: 600; }
+  .card-status { margin-left: auto; }
+  .status-ok { background: #dcfce7; color: #166534; font-size: 0.75rem; padding: 4px 10px;
+                border-radius: 20px; font-weight: 600; }
+  .status-warn { background: #fef3c7; color: #92400e; font-size: 0.75rem; padding: 4px 10px;
+                  border-radius: 20px; font-weight: 600; }
+
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #f0f2f7; }
+  .info-block { padding: 14px 24px; background: white; }
+  .info-block h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: .06em;
+                    color: #9ca3af; margin-bottom: 4px; }
+  .info-block p { font-size: 0.88rem; color: #374151; }
+
+  .services-block { padding: 14px 24px; border-top: 1px solid #f0f2f7; }
+  .badge { display: inline-block; background: #f3f4f6; color: #374151; font-size: 0.75rem;
+            padding: 3px 10px; border-radius: 20px; margin: 3px 3px 3px 0; }
+  .badge.more { background: #e0e7ff; color: #4338ca; }
+
+  .changes-block { padding: 16px 24px; border-top: 1px solid #f0f2f7; }
+  .changes-block h4 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: .06em;
+                       color: #9ca3af; margin-bottom: 8px; }
+  .change-count { background: #fef3c7; color: #92400e; font-size: 0.7rem; padding: 1px 7px;
+                   border-radius: 20px; font-weight: 600; margin-left: 6px; }
+  .changes-list { list-style: none; padding: 0; }
+  .changes-list li { font-size: 0.82rem; color: #4b5563; padding: 3px 0 3px 14px;
+                      position: relative; border-bottom: 1px solid #f9fafb; }
+  .changes-list li::before { content: "→"; position: absolute; left: 0; color: #667eea; }
+  .more-changes { color: #9ca3af !important; font-style: italic; }
+
+  .card-footer { display: flex; align-items: center; justify-content: space-between;
+                  padding: 14px 24px; background: #f9fafb; border-top: 1px solid #f0f2f7; }
+  .btn-diff { background: #667eea; color: white; text-decoration: none; font-size: 0.8rem;
+               padding: 7px 16px; border-radius: 8px; font-weight: 600; transition: background .2s; }
+  .btn-diff:hover { background: #4f46e5; }
+  .pipeline-icons { font-size: 0.75rem; color: #6b7280; }
+  .tick { color: #16a34a; font-weight: 700; }
+  .cross { color: #dc2626; font-weight: 700; }
+
+  /* Status Table */
+  table { width: 100%; border-collapse: collapse; background: white;
+           border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  th { background: #f8fafc; font-size: 0.78rem; text-transform: uppercase;
+        letter-spacing: .05em; color: #6b7280; padding: 12px 16px; text-align: left;
+        border-bottom: 2px solid #e5e7eb; }
+  td { padding: 12px 16px; font-size: 0.88rem; border-bottom: 1px solid #f3f4f6; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f9fafb; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 24px; color: #9ca3af; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🤖 Clara Retell Automation — Pipeline Dashboard</h1>
+  <p>Zero-cost automation: Demo Call → Retell Agent Draft → Onboarding Updates → Agent Revision</p>
+  <div class="header-meta">
+    <div class="meta-stat">
+      <div class="num">5</div>
+      <div class="lbl">Accounts</div>
+    </div>
+    <div class="meta-stat">
+      <div class="num">10</div>
+      <div class="lbl">Transcripts</div>
+    </div>
+    <div class="meta-stat">
+      <div class="num">75</div>
+      <div class="lbl">Total Changes</div>
+    </div>
+    <div class="meta-stat">
+      <div class="num">10</div>
+      <div class="lbl">Agent Versions</div>
+    </div>
+    <div class="meta-stat">
+      <div class="num">$0</div>
+      <div class="lbl">API Cost</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <section>
+    <h3 class="section-title">Pipeline Status</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Account</th><th>Company</th><th>Industry</th>
+          <th>v1 Outputs</th><th>v2 Outputs</th>
+          <th>Diff Report</th><th>Changelog</th><th>Changes</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+<tr>
+  <td><strong>acc_001</strong></td>
+  <td>ABC Plumbing</td>
+  <td>🔧 Plumbing</td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><strong>16</strong></td>
+</tr>
+
+<tr>
+  <td><strong>acc_002</strong></td>
+  <td>Sunshine HVAC Services</td>
+  <td>❄️ HVAC</td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><strong>9</strong></td>
+</tr>
+
+<tr>
+  <td><strong>acc_003</strong></td>
+  <td>GreenLeaf Landscaping</td>
+  <td>🌿 Landscaping</td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><strong>12</strong></td>
+</tr>
+
+<tr>
+  <td><strong>acc_004</strong></td>
+  <td>Apex Electrical Solutions</td>
+  <td>⚡ Electrical</td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><strong>21</strong></td>
+</tr>
+
+<tr>
+  <td><strong>acc_005</strong></td>
+  <td>ClearView Pest Control</td>
+  <td>🐛 Pest Control</td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span> <span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><span class='tick'>✓</span></td>
+  <td><strong>17</strong></td>
+</tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3 class="section-title">Account Details</h3>
+    <div class="cards-grid">
+      
+<div class="card">
+  <div class="card-header">
+    <span class="industry-icon">🔧</span>
+    <div>
+      <h2>ABC Plumbing</h2>
+      <span class="account-id">acc_001</span> &nbsp; <span class="industry-tag">Plumbing</span>
+    </div>
+    <div class="card-status"><span class='status-ok'>Complete</span></div>
+  </div>
+
+  <div class="card-grid">
+    <div class="info-block">
+      <h4>Business Hours</h4>
+      <p>Monday through Friday 08:00–18:00 EST</p>
+    </div>
+    <div class="info-block">
+      <h4>Emergency Triggers</h4>
+      <p>frozen pipe situations</p>
+    </div>
+    <div class="info-block">
+      <h4>On-Call Phone</h4>
+      <p>555-0199</p>
+    </div>
+    <div class="info-block">
+      <h4>Callback Guarantee</h4>
+      <p>15 min</p>
+    </div>
+  </div>
+
+  <div class="info-block services-block">
+    <h4>Services Supported (v2)</h4>
+    <div><span class='badge'>a wide range of plumbing services</span><span class='badge'>saturday hours from 9 am to 1 pm</span><span class='badge'>a couple of new services</span><span class='badge'>water filtration system installation</span><span class='badge'>bathroom remodeling as a service</span></div>
+  </div>
+
+  <div class="changes-block">
+    <h4>Onboarding Changes <span class="change-count">16</span></h4>
+    <ul class="changes-list"><li>Business hours start updated from 09:00 to 08:00</li><li>Business hours end updated from 17:00 to 18:00</li><li>Added service: saturday hours from 9 am to 1 pm</li><li>Added service: a couple of new services</li><li>Added service: water filtration system installation</li><li>Added service: bathroom remodeling as a service</li><li class='more-changes'>+ 10 more changes…</li></ul>
+  </div>
+
+  <div class="card-footer">
+    <a href="../accounts/acc_001/diff_report.html" class="btn-diff" target="_blank">📊 View Diff Report</a>
+    <span class="pipeline-icons">
+      v1 memo <span class='tick'>✓</span>
+      v1 agent <span class='tick'>✓</span>
+      v2 memo <span class='tick'>✓</span>
+      v2 agent <span class='tick'>✓</span>
+      diff <span class='tick'>✓</span>
+      changelog <span class='tick'>✓</span>
+    </span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="industry-icon">❄️</span>
+    <div>
+      <h2>Sunshine HVAC Services</h2>
+      <span class="account-id">acc_002</span> &nbsp; <span class="industry-tag">HVAC</span>
+    </div>
+    <div class="card-status"><span class='status-ok'>Complete</span></div>
+  </div>
+
+  <div class="card-grid">
+    <div class="info-block">
+      <h4>Business Hours</h4>
+      <p>Monday through Saturday 08:00–18:00 EST</p>
+    </div>
+    <div class="info-block">
+      <h4>Emergency Triggers</h4>
+      <p>refrigerant leaks</p>
+    </div>
+    <div class="info-block">
+      <h4>On-Call Phone</h4>
+      <p>555-0234</p>
+    </div>
+    <div class="info-block">
+      <h4>Callback Guarantee</h4>
+      <p>15 min</p>
+    </div>
+  </div>
+
+  <div class="info-block services-block">
+    <h4>Services Supported (v2)</h4>
+    <div><span class='badge'>in heating</span><span class='badge'>ventilation</span><span class='badge'>air conditioning services</span><span class='badge'>heat pump installation</span><span class='badge'>a new extension</span><span class='badge'>a free first-time consultation for new customers</span></div>
+  </div>
+
+  <div class="changes-block">
+    <h4>Onboarding Changes <span class="change-count">9</span></h4>
+    <ul class="changes-list"><li>Added service: heat pump installation</li><li>Added service: a new extension</li><li>Added service: a free first-time consultation for new customers</li><li>Added emergency definition: refrigerant leaks</li><li>Emergency routing 'callback_guarantee_minutes' updated from 'None' to '15'</li><li>Added note: offer heat pump installation and repair, and we started doing mini-split system installations. Those are getting very popular</li><li class='more-changes'>+ 3 more changes…</li></ul>
+  </div>
+
+  <div class="card-footer">
+    <a href="../accounts/acc_002/diff_report.html" class="btn-diff" target="_blank">📊 View Diff Report</a>
+    <span class="pipeline-icons">
+      v1 memo <span class='tick'>✓</span>
+      v1 agent <span class='tick'>✓</span>
+      v2 memo <span class='tick'>✓</span>
+      v2 agent <span class='tick'>✓</span>
+      diff <span class='tick'>✓</span>
+      changelog <span class='tick'>✓</span>
+    </span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="industry-icon">🌿</span>
+    <div>
+      <h2>GreenLeaf Landscaping</h2>
+      <span class="account-id">acc_003</span> &nbsp; <span class="industry-tag">Landscaping</span>
+    </div>
+    <div class="card-status"><span class='status-ok'>Complete</span></div>
+  </div>
+
+  <div class="card-grid">
+    <div class="info-block">
+      <h4>Business Hours</h4>
+      <p>Monday through Friday 07:00–16:00 EST</p>
+    </div>
+    <div class="info-block">
+      <h4>Emergency Triggers</h4>
+      <p>large branch hanging dangerously over a structure</p>
+    </div>
+    <div class="info-block">
+      <h4>On-Call Phone</h4>
+      <p>555-0345</p>
+    </div>
+    <div class="info-block">
+      <h4>Callback Guarantee</h4>
+      <p>45 min</p>
+    </div>
+  </div>
+
+  <div class="info-block services-block">
+    <h4>Services Supported (v2)</h4>
+    <div><span class='badge'>provide?</span><span class='badge'>saturday service from 8 am to 12 pm noon</span><span class='badge'>outdoor lighting installation to our service list</span><span class='badge'>a new extension for commercial clients — extension 12</span><span class='badge'>free estimates for any project over 500 dollars</span><span class='badge'>snow removal for our commercial clients</span></div>
+  </div>
+
+  <div class="changes-block">
+    <h4>Onboarding Changes <span class="change-count">12</span></h4>
+    <ul class="changes-list"><li>Added service: saturday service from 8 am to 12 pm noon</li><li>Added service: outdoor lighting installation to our service list</li><li>Added service: a new extension for commercial clients — extension 12</li><li>Added service: free estimates for any project over 500 dollars</li><li>Added service: snow removal for our commercial clients</li><li>Added emergency definition: large branch hanging dangerously over a structure</li><li class='more-changes'>+ 6 more changes…</li></ul>
+  </div>
+
+  <div class="card-footer">
+    <a href="../accounts/acc_003/diff_report.html" class="btn-diff" target="_blank">📊 View Diff Report</a>
+    <span class="pipeline-icons">
+      v1 memo <span class='tick'>✓</span>
+      v1 agent <span class='tick'>✓</span>
+      v2 memo <span class='tick'>✓</span>
+      v2 agent <span class='tick'>✓</span>
+      diff <span class='tick'>✓</span>
+      changelog <span class='tick'>✓</span>
+    </span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="industry-icon">⚡</span>
+    <div>
+      <h2>Apex Electrical Solutions</h2>
+      <span class="account-id">acc_004</span> &nbsp; <span class="industry-tag">Electrical</span>
+    </div>
+    <div class="card-status"><span class='status-ok'>Complete</span></div>
+  </div>
+
+  <div class="card-grid">
+    <div class="info-block">
+      <h4>Business Hours</h4>
+      <p>Monday through Saturday 07:30–17:30 MST | Sat 08:00–15:00</p>
+    </div>
+    <div class="info-block">
+      <h4>Emergency Triggers</h4>
+      <p>power outages in commercial buildings, sparking outlets or panels, burning smell from electrical systems, exposed live wires</p>
+    </div>
+    <div class="info-block">
+      <h4>On-Call Phone</h4>
+      <p>555-0456</p>
+    </div>
+    <div class="info-block">
+      <h4>Callback Guarantee</h4>
+      <p>10 min</p>
+    </div>
+  </div>
+
+  <div class="info-block services-block">
+    <h4>Services Supported (v2)</h4>
+    <div><span class='badge'>both residential</span><span class='badge'>commercial electrical work</span><span class='badge'>a new commercial projects line at extension 305</span><span class='badge'>a secondary system just for solar projects called aurora solar</span><span class='badge'>free electrical safety inspections for first-time commercial clients</span><span class='badge'>smart home wiring — network</span><span class='badge more'>+1 more</span></div>
+  </div>
+
+  <div class="changes-block">
+    <h4>Onboarding Changes <span class="change-count">21</span></h4>
+    <ul class="changes-list"><li>Business days updated from 'Monday through Friday' to 'Monday through Saturday'</li><li>Saturday hours added: 08:00-15:00</li><li>Office address updated from '321 Volt Avenue, Phoenix, AZ' to '500 Circuit Boulevard, Phoenix, AZ'</li><li>Added service: a new commercial projects line at extension 305</li><li>Added service: a secondary system just for solar projects called aurora solar</li><li>Added service: free electrical safety inspections for first-time commercial clients</li><li class='more-changes'>+ 15 more changes…</li></ul>
+  </div>
+
+  <div class="card-footer">
+    <a href="../accounts/acc_004/diff_report.html" class="btn-diff" target="_blank">📊 View Diff Report</a>
+    <span class="pipeline-icons">
+      v1 memo <span class='tick'>✓</span>
+      v1 agent <span class='tick'>✓</span>
+      v2 memo <span class='tick'>✓</span>
+      v2 agent <span class='tick'>✓</span>
+      diff <span class='tick'>✓</span>
+      changelog <span class='tick'>✓</span>
+    </span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="industry-icon">🐛</span>
+    <div>
+      <h2>ClearView Pest Control</h2>
+      <span class="account-id">acc_005</span> &nbsp; <span class="industry-tag">Pest Control</span>
+    </div>
+    <div class="card-status"><span class='status-ok'>Complete</span></div>
+  </div>
+
+  <div class="card-grid">
+    <div class="info-block">
+      <h4>Business Hours</h4>
+      <p>Monday through Friday 08:00–17:00 EST | Sat 09:00–13:00</p>
+    </div>
+    <div class="info-block">
+      <h4>Emergency Triggers</h4>
+      <p>active rodent infestations in food service areas, termite swarms inside a building, wasp or bee nests near entrances or occupied spaces, any wildlife incursion like raccoons or possums inside a building</p>
+    </div>
+    <div class="info-block">
+      <h4>On-Call Phone</h4>
+      <p>555-0567</p>
+    </div>
+    <div class="info-block">
+      <h4>Callback Guarantee</h4>
+      <p>30 min</p>
+    </div>
+  </div>
+
+  <div class="info-block services-block">
+    <h4>Services Supported (v2)</h4>
+    <div><span class='badge'>in both residential</span><span class='badge'>commercial pest control services</span><span class='badge'>two new services</span><span class='badge'>crawl space encapsulation</span><span class='badge'>a couple</span><span class='badge'>a commercial accounts line at extension 55</span><span class='badge more'>+3 more</span></div>
+  </div>
+
+  <div class="changes-block">
+    <h4>Onboarding Changes <span class="change-count">17</span></h4>
+    <ul class="changes-list"><li>Saturday hours updated to 09:00-13:00</li><li>Added service: two new services</li><li>Added service: crawl space encapsulation</li><li>Added service: a couple</li><li>Added service: a commercial accounts line at extension 55</li><li>Added service: a free initial pest inspection for new commercial clients</li><li class='more-changes'>+ 11 more changes…</li></ul>
+  </div>
+
+  <div class="card-footer">
+    <a href="../accounts/acc_005/diff_report.html" class="btn-diff" target="_blank">📊 View Diff Report</a>
+    <span class="pipeline-icons">
+      v1 memo <span class='tick'>✓</span>
+      v1 agent <span class='tick'>✓</span>
+      v2 memo <span class='tick'>✓</span>
+      v2 agent <span class='tick'>✓</span>
+      diff <span class='tick'>✓</span>
+      changelog <span class='tick'>✓</span>
+    </span>
+  </div>
+</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  Generated by Clara Retell Automation Pipeline v2.0.0 &nbsp;·&nbsp; 2026-03-04 15:46:49
+</div>
+
+</body>
+</html>
