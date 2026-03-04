@@ -47,8 +47,8 @@
     "transfer_fail_protocol": "we let the caller know someone will call them back within the hour"
   },
   "integration_constraints": [
-    "sprinkler-related jobs in ServiceTrade",
     "Primary system: ServiceTrade",
+    "sprinkler-related jobs in ServiceTrade",
     "backflow testing jobs in ServiceTrade"
   ],
   "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
@@ -59,14 +59,14 @@
   "notes": "Auto-extracted from demo call transcript for ABC Plumbing. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | added Saturday hours from 9 AM to 1 PM. Same timezone, Eastern | do water filtration system installation and tankless water heater installation. Also, we've started offering bathroom remodeling as a service | though \u2014 we also don't want anyone creating backflow testing jobs in ServiceTrade. Those go through a separate certification system |  We've hired a dedicated dispatcher, so during business hours, all service calls should transfer to the dispatcher at extension 105 instead of the general dispatch at 101. Billing is still 102",
   "extraction_confidence": {
     "company_name": 100,
-    "business_hours": 80,
+    "business_hours": 100,
     "office_address": 100,
     "services_supported": 100,
     "emergency_definition": 100,
-    "emergency_routing_rules": 60,
+    "emergency_routing_rules": 75,
     "callback_guarantee": 100,
     "call_transfer_rules": 100,
-    "integration_constraints": 60,
-    "overall": 88
+    "integration_constraints": 100,
+    "overall": 97
   }
 }

@@ -191,20 +191,24 @@ def extract_onboarding_updates(transcript: str) -> dict:
     return updates
 
 
-def normalize_time(t: str) -> str:
-    """Normalize time string to HH:MM format."""
-    t = t.strip().upper()
-    match = re.match(r"(\d{1,2})(?::(\d{2}))?\s*(AM|PM)", t)
-    if match:
-        hour = int(match.group(1))
-        minute = match.group(2) or "00"
-        period = match.group(3)
-        if period == "PM" and hour != 12:
-            hour += 12
-        elif period == "AM" and hour == 12:
-            hour = 0
-        return f"{hour:02d}:{minute}"
-    return t
+# Import normalize_time from extract_account_info to avoid duplication
+try:
+    from extract_account_info import normalize_time
+except ImportError:
+    def normalize_time(t: str) -> str:
+        """Normalize time string to HH:MM format (fallback)."""
+        t = t.strip().upper()
+        match = re.match(r"(\d{1,2})(?::(\d{2}))?\s*(AM|PM)", t)
+        if match:
+            hour = int(match.group(1))
+            minute = match.group(2) or "00"
+            period = match.group(3)
+            if period == "PM" and hour != 12:
+                hour += 12
+            elif period == "AM" and hour == 12:
+                hour = 0
+            return f"{hour:02d}:{minute}"
+        return t
 
 
 def apply_updates(v1_memo: dict, updates: dict) -> tuple:

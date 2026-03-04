@@ -49,8 +49,8 @@
     "transfer_fail_protocol": ""
   },
   "integration_constraints": [
-    "jobs created outside the system because it throws off crew schedules",
-    "Primary system: Jobber"
+    "Primary system: Jobber",
+    "All jobs must go through Jobber"
   ],
   "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
   "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
@@ -61,14 +61,14 @@
   "notes": "Auto-extracted from demo call transcript for GreenLeaf Landscaping. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | had a note you don't do snow removal | , we added outdoor lighting installation to our service list | , standing water due to failed drainage should be treated as urgent | free estimates for any project over 500 dollars | to callers who are asking about new landscape design or hardscape work",
   "extraction_confidence": {
     "company_name": 100,
-    "business_hours": 80,
+    "business_hours": 100,
     "office_address": 100,
     "services_supported": 100,
-    "emergency_definition": 80,
-    "emergency_routing_rules": 60,
+    "emergency_definition": 100,
+    "emergency_routing_rules": 85,
     "callback_guarantee": 100,
-    "call_transfer_rules": 33,
-    "integration_constraints": 40,
-    "overall": 77
+    "call_transfer_rules": 30,
+    "integration_constraints": 90,
+    "overall": 89
   }
 }

@@ -47,25 +47,25 @@
     "transfer_fail_protocol": "we let the caller know someone will reach out within one hour"
   },
   "integration_constraints": [
-    "Primary system: FieldEdge"
+    "Primary system: FieldEdge",
+    "All jobs must be created through FieldEdge"
   ],
   "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
   "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
   "questions_or_unknowns": [
-    "On-call contact name not identified \u2014 confirm emergency contact person.",
-    "Low confidence extraction for 'Integration Constraints' \u2014 verify with client."
+    "On-call contact name not identified \u2014 confirm emergency contact person."
   ],
   "notes": "Auto-extracted from demo call transcript for Apex Electrical Solutions. Confidence scores are per-field estimates; fields below 60% should be verified with the client.",
   "extraction_confidence": {
     "company_name": 100,
-    "business_hours": 80,
+    "business_hours": 100,
     "office_address": 100,
     "services_supported": 100,
-    "emergency_definition": 80,
+    "emergency_definition": 100,
     "emergency_routing_rules": 80,
     "callback_guarantee": 100,
-    "call_transfer_rules": 66,
-    "integration_constraints": 20,
-    "overall": 80
+    "call_transfer_rules": 80,
+    "integration_constraints": 90,
+    "overall": 94
   }
 }

@@ -36,6 +36,11 @@ def check_memo(memo: dict, version: str, account_id: str) -> list:
         if field not in memo:
             issues.append(("ERROR", f"{version}/memo.json missing required field: '{field}'"))
         elif not memo[field]:
+            # Don't warn about empty questions_or_unknowns if confidence is high
+            if field == "questions_or_unknowns":
+                overall = memo.get("extraction_confidence", {}).get("overall", 0)
+                if overall >= 80:
+                    continue  # high-confidence account, empty unknowns is correct
             issues.append(("WARN", f"{version}/memo.json field '{field}' is empty"))
 
     # account_id consistency
@@ -54,7 +59,7 @@ def check_memo(memo: dict, version: str, account_id: str) -> list:
     services = memo.get("services_supported", [])
     if not services:
         issues.append(("WARN", f"{version}/memo.json services_supported is empty"))
-    elif len(services) < 1:
+    elif len(services) < 3:
         issues.append(("WARN", f"{version}/memo.json only {len(services)} service(s) found — expected more"))
 
     # Emergency routing
@@ -69,7 +74,8 @@ def check_agent_spec(spec: dict, version: str) -> list:
     """Return list of issues found in an agent spec."""
     issues = []
 
-    required = ["agent_name", "version", "voice_id", "conversationFlow", "response_engine"]
+    required = ["agent_name", "version", "voice_id", "conversationFlow",
+                 "response_engine", "call_transfer_protocol", "fallback_protocol"]
     for field in required:
         if not spec.get(field):
             issues.append(("ERROR", f"{version}/agent_spec.json missing field: '{field}'"))
@@ -104,14 +110,14 @@ def check_v2_improvement(v1_memo: dict, v2_memo: dict) -> list:
 
     v1_services = set(v1_memo.get("services_supported", []))
     v2_services = set(v2_memo.get("services_supported", []))
-    if v2_services.issubset(v1_services) and v1_services == v2_services:
+    if v1_services == v2_services:
         issues.append(("WARN", "v2 memo services_supported unchanged from v1"))
 
-    # Check v2 has a different global_prompt than v1
-    v1_prompt = v1_memo.get("conversationFlow", {}).get("global_prompt", v1_memo.get("notes", ""))
-    v2_prompt = v2_memo.get("conversationFlow", {}).get("global_prompt", v2_memo.get("notes", ""))
-    if v1_prompt == v2_prompt:
-        issues.append(("WARN", "v2 memo system_prompt identical to v1"))
+    # Check v2 has different notes / questions_or_unknowns from v1
+    v1_notes = v1_memo.get("notes", "")
+    v2_notes = v2_memo.get("notes", "")
+    if v1_notes == v2_notes and v1_notes:
+        issues.append(("WARN", "v2 memo notes identical to v1"))
 
     return issues
 

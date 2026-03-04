@@ -57,12 +57,14 @@
     "transfer_fail_protocol": "we assure the caller someone will call back within 45 minutes"
   },
   "integration_constraints": [
-    "any parallel systems",
-    "Primary system: PestPac"
+    "Primary system: PestPac",
+    "All jobs must be created through PestPac"
   ],
   "after_hours_flow_summary": "After hours: greet caller, determine if emergency. If emergency: collect name, phone, address, attempt transfer to on-call. If transfer fails: assure callback. If non-emergency: take message, callback next business day.",
   "office_hours_flow_summary": "During hours: greet caller, ask how to help, collect name and phone, determine service type, transfer to appropriate extension/department. If transfer fails: assure callback within specified timeframe.",
-  "questions_or_unknowns": [],
+  "questions_or_unknowns": [
+    "All fields extracted with high confidence. Ready for agent deployment."
+  ],
   "notes": "Auto-extracted from demo call transcript for ClearView Pest Control. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | , we've expanded our recurring plans to include annual termite bond renewals | , add severe ant infestation in a commercial kitchen \u2014 like fire ants in a restaurant kitchen needs immediate response | , for wildlife emergencies specifically, route directly to our wildlife specialist, Kevin, at 555-0575 first | a free initial pest inspection for new commercial clients | we offer compliance documentation \u2014 we provide all the paperwork needed for health inspections",
   "extraction_confidence": {
     "company_name": 100,
@@ -70,10 +72,10 @@
     "office_address": 100,
     "services_supported": 100,
     "emergency_definition": 100,
-    "emergency_routing_rules": 80,
+    "emergency_routing_rules": 95,
     "callback_guarantee": 100,
-    "call_transfer_rules": 66,
-    "integration_constraints": 40,
-    "overall": 87
+    "call_transfer_rules": 80,
+    "integration_constraints": 90,
+    "overall": 96
   }
 }

@@ -5,7 +5,7 @@
   "version": "v2",
   "metadata": {
     "pipeline_version": "2.0.0",
-    "generated_at": "2026-03-04T19:42:53Z",
+    "generated_at": "2026-03-04T20:17:40Z",
     "account_id": "acc_004",
     "extraction_confidence": {
       "company_name": 100,
@@ -15,15 +15,15 @@
       "emergency_definition": 100,
       "emergency_routing_rules": 80,
       "callback_guarantee": 100,
-      "call_transfer_rules": 66,
-      "integration_constraints": 20,
-      "overall": 85
+      "call_transfer_rules": 80,
+      "integration_constraints": 90,
+      "overall": 94
     }
   },
   "response_engine": {
     "type": "conversation-flow",
     "version": 0,
-    "conversation_flow_id": "conversation_flow_47c94d785498"
+    "conversation_flow_id": "conversation_flow_1d2b13238691"
   },
   "language": "en-US",
   "data_storage_setting": "everything",
@@ -64,9 +64,9 @@
   "call_transfer_protocol": "Transfer emergency calls to on-call technician immediately. If transfer fails, collect caller info and guarantee callback.",
   "fallback_protocol": "If transfer fails: apologize, collect name, phone number, and address. Assure the caller someone will call back within the guaranteed timeframe.",
   "conversationFlow": {
-    "conversation_flow_id": "conversation_flow_47c94d785498",
+    "conversation_flow_id": "conversation_flow_1d2b13238691",
     "version": 0,
-    "global_prompt": "You are the phone receptionist for Apex Electrical Solutions.\n\nYour job is to:\n\u2022 Greet callers professionally\n\u2022 Understand the caller's issue\n\u2022 Collect the caller's name and phone number\n\u2022 Determine whether the issue is an emergency\n\u2022 Route the call according to the rules\n\nCompany Information:\n- Company: Apex Electrical Solutions\n- Address: 500 Circuit Boulevard, Phoenix, AZ\n- Business Hours: Monday through Saturday, 07:30 to 17:30 MST. Saturday: 08:00 to 15:00\n- Services: electrical panel upgrades, wiring and rewiring, lighting installation, ev charger installation, generator installation and repair, commercial electrical maintenance, code compliance inspections, surge protection, a new commercial projects line at extension 305, a secondary system just for solar projects called aurora solar, free electrical safety inspections for first-time commercial clients, smart home wiring \u2014 network, home automation\n\nEmergency Definitions:\nThe following situations are considered emergencies: power outages in commercial buildings, sparking outlets or panels, burning smell from electrical systems, exposed live wires, electrical fire aftermath to that list. even if the fire is out, if there's electrical damage, we treat it\n\nDuring business hours:\n- Greet the caller warmly and professionally\n- Ask how you can help\n- Collect the caller's name and phone number\n- Determine the type of service needed\n- Transfer the call to the appropriate department\n- If transfer fails, reassure the caller and promise a callback\n\nAfter business hours:\n- Greet the caller\n- Determine if the issue is an emergency\n- If emergency: collect name, phone number, and address immediately\n- Attempt to transfer to the on-call technician\n- If transfer fails: assure the caller someone will call them back shortly\n- If not an emergency: take a message with name, phone, and description\n- Let them know someone will reach out the next business day\n\nImportant Rules:\n- Keep questions minimal and professional\n- Only collect information needed for routing and dispatch\n- Never mention internal systems, tools, or function calls to the caller\n- Always end by asking if the caller needs anything else\n- Be empathetic and reassuring, especially during emergencies\n\nCallback Guarantee: When a transfer fails or a non-emergency after-hours call is received, assure the caller that someone will call them back within 10 minutes.\n\nIntegration Constraints:\n- Primary system: FieldEdge\n\nAdditional Notes: Auto-extracted from demo call transcript for Apex Electrical Solutions. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | , we just started offering smart home wiring \u2014 network, home automation, that kind of thing. And whole-house rewiring for older homes | , adding complete loss of power to a residential home during extreme heat since we're in Arizona and that's dangerous | log it in Aurora | , we now accept emergency calls for residential customers after hours too, not just commercial | free electrical safety inspections for first-time commercial clients | when a commercial caller asks about our services",
+    "global_prompt": "You are the phone receptionist for Apex Electrical Solutions.\n\nYour job is to:\n\u2022 Greet callers professionally\n\u2022 Understand the caller's issue\n\u2022 Collect the caller's name and phone number\n\u2022 Determine whether the issue is an emergency\n\u2022 Route the call according to the rules\n\nCompany Information:\n- Company: Apex Electrical Solutions\n- Address: 500 Circuit Boulevard, Phoenix, AZ\n- Business Hours: Monday through Saturday, 07:30 to 17:30 MST. Saturday: 08:00 to 15:00\n- Services: electrical panel upgrades, wiring and rewiring, lighting installation, ev charger installation, generator installation and repair, commercial electrical maintenance, code compliance inspections, surge protection, a new commercial projects line at extension 305, a secondary system just for solar projects called aurora solar, free electrical safety inspections for first-time commercial clients, smart home wiring \u2014 network, home automation\n\nEmergency Definitions:\nThe following situations are considered emergencies: power outages in commercial buildings, sparking outlets or panels, burning smell from electrical systems, exposed live wires, electrical fire aftermath to that list. even if the fire is out, if there's electrical damage, we treat it\n\nDuring business hours:\n- Greet the caller warmly and professionally\n- Ask how you can help\n- Collect the caller's name and phone number\n- Determine the type of service needed\n- Transfer the call to the appropriate department\n- If transfer fails, reassure the caller and promise a callback\n\nAfter business hours:\n- Greet the caller\n- Determine if the issue is an emergency\n- If emergency: collect name, phone number, and address immediately\n- Attempt to transfer to the on-call technician\n- If transfer fails: assure the caller someone will call them back shortly\n- If not an emergency: take a message with name, phone, and description\n- Let them know someone will reach out the next business day\n\nImportant Rules:\n- Keep questions minimal and professional\n- Only collect information needed for routing and dispatch\n- Never mention internal systems, tools, or function calls to the caller\n- Always end by asking if the caller needs anything else\n- Be empathetic and reassuring, especially during emergencies\n\nCallback Guarantee: When a transfer fails or a non-emergency after-hours call is received, assure the caller that someone will call them back within 10 minutes.\n\nIntegration Constraints:\n- Primary system: FieldEdge\n- All jobs must be created through FieldEdge\n\nAdditional Notes: Auto-extracted from demo call transcript for Apex Electrical Solutions. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | , we just started offering smart home wiring \u2014 network, home automation, that kind of thing. And whole-house rewiring for older homes | , adding complete loss of power to a residential home during extreme heat since we're in Arizona and that's dangerous | log it in Aurora | , we now accept emergency calls for residential customers after hours too, not just commercial | free electrical safety inspections for first-time commercial clients | when a commercial caller asks about our services",
     "nodes": [
       {
         "instruction": {
@@ -76,8 +76,8 @@
         "name": "Greeting",
         "edges": [
           {
-            "destination_node_id": "node-extract-41d48887",
-            "id": "edge-greet-0af4971c",
+            "destination_node_id": "node-extract-d13cd6e8",
+            "id": "edge-greet-c4800ee5",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Continue"
@@ -85,7 +85,7 @@
           }
         ],
         "start_speaker": "agent",
-        "id": "start-node-24bd30eae6",
+        "id": "start-node-ebc79378dc",
         "type": "conversation",
         "display_position": {
           "x": -220,
@@ -126,8 +126,8 @@
           }
         ],
         "else_edge": {
-          "destination_node_id": "node-non-emerg-80d3fadd",
-          "id": "node-extract-41d48887-else-edge",
+          "destination_node_id": "node-non-emerg-2aa7cb28",
+          "id": "node-extract-d13cd6e8-else-edge",
           "transition_condition": {
             "type": "prompt",
             "prompt": "Else"
@@ -136,14 +136,14 @@
         "name": "Extract Variables",
         "edges": [
           {
-            "id": "edge-extract-c8bea94b",
+            "id": "edge-extract-f799d8aa",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Describe the transition condition"
             }
           }
         ],
-        "id": "node-extract-41d48887",
+        "id": "node-extract-d13cd6e8",
         "type": "extract_dynamic_variables",
         "display_position": {
           "x": 5,
@@ -154,18 +154,18 @@
         "name": "Logic Split",
         "edges": [
           {
-            "destination_node_id": "node-emerg-conv-0b6ab70a",
-            "id": "edge-branch-77dbc69a",
+            "destination_node_id": "node-emerg-conv-d82bde28",
+            "id": "edge-branch-10178a09",
             "transition_condition": {
               "type": "prompt",
               "prompt": "is_emergency == true"
             }
           }
         ],
-        "id": "node-branch-9a53c2ca",
+        "id": "node-branch-264983a5",
         "else_edge": {
-          "destination_node_id": "node-non-emerg-80d3fadd",
-          "id": "edge-branch-else-1e0d7d51",
+          "destination_node_id": "node-non-emerg-2aa7cb28",
+          "id": "edge-branch-else-3f68486f",
           "transition_condition": {
             "type": "prompt",
             "prompt": "Else"
@@ -181,15 +181,15 @@
         "name": "Emergency Conversation",
         "edges": [
           {
-            "destination_node_id": "node-transfer-732e643e",
-            "id": "edge-emerg-4c95cf20",
+            "destination_node_id": "node-transfer-df3c5492",
+            "id": "edge-emerg-b6254927",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Please hold while I connect you to our emergency technician."
             }
           }
         ],
-        "id": "node-emerg-conv-0b6ab70a",
+        "id": "node-emerg-conv-d82bde28",
         "type": "conversation",
         "display_position": {
           "x": 370,
@@ -207,8 +207,8 @@
           "number": "+15550456"
         },
         "edge": {
-          "destination_node_id": "node-fail-conv-9d825590",
-          "id": "edge-transfer-8da2c3b8",
+          "destination_node_id": "node-fail-conv-f56e87b5",
+          "id": "edge-transfer-1dbb40a8",
           "transition_condition": {
             "type": "prompt",
             "prompt": "Transfer failed"
@@ -216,7 +216,7 @@
         },
         "name": "Transfer Call",
         "ignore_e164_validation": false,
-        "id": "node-transfer-732e643e",
+        "id": "node-transfer-df3c5492",
         "transfer_option": {
           "type": "cold_transfer",
           "show_transferee_as_caller": false,
@@ -233,15 +233,15 @@
         "name": "Transfer Failed",
         "edges": [
           {
-            "destination_node_id": "node-end-fail-9d010de0",
-            "id": "edge-fail-89f110ca",
+            "destination_node_id": "node-end-fail-fb88ac48",
+            "id": "edge-fail-f58b9407",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Thank you for calling. We will get back to you shortly."
             }
           }
         ],
-        "id": "node-fail-conv-9d825590",
+        "id": "node-fail-conv-f56e87b5",
         "type": "conversation",
         "display_position": {
           "x": 385,
@@ -254,7 +254,7 @@
       },
       {
         "name": "End Call (Emergency Fail)",
-        "id": "node-end-fail-9d010de0",
+        "id": "node-end-fail-fb88ac48",
         "type": "end",
         "speak_during_execution": true,
         "display_position": {
@@ -270,15 +270,15 @@
         "name": "Non-Emergency Handling",
         "edges": [
           {
-            "destination_node_id": "node-end-nonemerg-2c9df4a8",
-            "id": "edge-nonemerg-af2eaa73",
+            "destination_node_id": "node-end-nonemerg-a127f8ac",
+            "id": "edge-nonemerg-0c0713c0",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Caller has been helped or message taken."
             }
           }
         ],
-        "id": "node-non-emerg-80d3fadd",
+        "id": "node-non-emerg-2aa7cb28",
         "type": "conversation",
         "display_position": {
           "x": -50,
@@ -291,7 +291,7 @@
       },
       {
         "name": "End Call",
-        "id": "node-end-nonemerg-2c9df4a8",
+        "id": "node-end-nonemerg-a127f8ac",
         "type": "end",
         "display_position": {
           "x": 300,
@@ -303,7 +303,7 @@
         }
       }
     ],
-    "start_node_id": "start-node-24bd30eae6",
+    "start_node_id": "start-node-ebc79378dc",
     "start_speaker": "agent",
     "model_choice": {
       "type": "cascading",

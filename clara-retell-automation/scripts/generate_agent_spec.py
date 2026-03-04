@@ -20,10 +20,11 @@ import uuid
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, _SCRIPT_DIR)
 try:
-    from config import DEFAULT_VOICE, PIPELINE_VERSION
+    from config import DEFAULT_VOICE, PIPELINE_VERSION, DEFAULT_LANGUAGE
 except ImportError:
-    DEFAULT_VOICE = "retell-Cimo"
+    DEFAULT_VOICE = "Retell-Cimo"
     PIPELINE_VERSION = "2.0.0"
+    DEFAULT_LANGUAGE = "en-US"
 
 
 def generate_system_prompt(memo: dict) -> str:
@@ -382,7 +383,7 @@ def generate_agent_spec(memo: dict, version: str = "v1") -> dict:
             "version": 0,
             "conversation_flow_id": conversation_flow["conversation_flow_id"],
         },
-        "language": "en-US",
+        "language": DEFAULT_LANGUAGE,
         "data_storage_setting": "everything",
         "opt_in_signed_url": False,
         "is_published": False,

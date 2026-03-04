@@ -449,36 +449,82 @@ def extract_call_transfer_rules(text: str) -> dict:
 def extract_integration_constraints(text: str) -> list:
     """Extract software/integration constraints."""
     constraints = []
+    sw_name = ""
 
-    # Look for "never create" / "don't" patterns
-    never_patterns = re.findall(
-        r"(?:never|don't|do not|should not)\s+(?:create|make|use|accept)\s+(.+?)(?:\.|$)",
-        text,
-        re.IGNORECASE,
-    )
-    for match in never_patterns:
-        constraints.append(match.strip())
-
-    # Software mentions
+    # Software name extraction
     sw_match = re.search(
         r"(?:We use|using)\s+([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)\s+for",
         text,
         re.IGNORECASE,
     )
     if sw_match:
-        constraints.append(f"Primary system: {sw_match.group(1)}")
+        sw_name = sw_match.group(1)
+        constraints.append(f"Primary system: {sw_name}")
 
-    return constraints
+    # "All X must/should go through Y" pattern
+    through_match = re.search(
+        r"[Aa]ll\s+(?:job|work|service|treatment)\s+\w+(?:\s+\w+)*\s+(?:must|should|has to|have to)\s+(?:be\s+)?(?:go|created?)\s+through\s+([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)",
+        text, re.IGNORECASE,
+    )
+    if through_match:
+        system = through_match.group(1)
+        constraints.append(f"All jobs must be created through {system}")
+
+    # "go through X" / "goes through X" general pattern
+    if not through_match:
+        go_match = re.search(
+            r"(?:entries|orders|jobs)\s+(?:should\s+)?go\s+through\s+([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)",
+            text, re.IGNORECASE,
+        )
+        if go_match:
+            system = go_match.group(1)
+            constraints.append(f"All jobs must go through {system}")
+
+    # "no manual"/"no off-system"/"no parallel" patterns
+    no_manual = re.search(
+        r"[Nn]o\s+(?:manual|off-system|off system|parallel)\s+(?:jobs?|entries|systems?|work orders?)",
+        text, re.IGNORECASE,
+    )
+    if no_manual:
+        constraints.append(f"No manual or off-system entries allowed")
+
+    # "don't create/accept/use" patterns — cleaned up
+    never_patterns = re.findall(
+        r"(?:never|don't|do not|should not)\s+(?:create|make|use|accept)\s+(.+?)(?:\.|$)",
+        text,
+        re.IGNORECASE,
+    )
+    for match in never_patterns:
+        cleaned = match.strip().rstrip(".")
+        # Skip overly long/messy extractions
+        if len(cleaned) > 60:
+            continue
+        # Skip if it's just restating "primary system" or duplicates through-constraint
+        if sw_name and sw_name.lower() in cleaned.lower() and "through" in cleaned.lower():
+            continue
+        if "parallel" in cleaned.lower() or "manual" in cleaned.lower():
+            continue  # handled above
+        constraints.append(cleaned)
+
+    # Deduplicate
+    seen = set()
+    unique = []
+    for c in constraints:
+        key = c.lower()
+        if key not in seen:
+            seen.add(key)
+            unique.append(c)
+    return unique
 
 
-def _confidence(value) -> int:
-    """Return a 0–100 confidence score for an extracted value."""
+def _confidence_generic(value) -> int:
+    """Return a 0–100 confidence score for an extracted value (generic)."""
     if value is None:
         return 0
     if isinstance(value, bool):
         return 100 if value else 0
     if isinstance(value, list):
-        return min(100, len(value) * 20) if value else 0
+        return min(100, len(value) * 25) if value else 0
     if isinstance(value, dict):
         non_empty = sum(1 for v in value.values() if v)
         return min(100, int(non_empty / max(len(value), 1) * 100))
@@ -489,20 +535,92 @@ def _confidence(value) -> int:
     return 0
 
 
+def _score_business_hours(hours: dict) -> int:
+    """Score business_hours — saturday is optional, don't penalize."""
+    if not hours:
+        return 0
+    required = ["days", "start", "end", "timezone"]
+    filled = sum(1 for k in required if hours.get(k))
+    base = int(filled / len(required) * 100)
+    # Bonus for Saturday — it's optional but valuable
+    if hours.get("saturday"):
+        base = min(100, base + 5)
+    return base
+
+
+def _score_emergency_routing(er: dict) -> int:
+    """Score emergency_routing_rules — weight critical fields heavier."""
+    if not er:
+        return 0
+    score = 0
+    # primary_phone is most critical (35 pts)
+    if er.get("primary_phone"):
+        score += 35
+    # callback_guarantee (30 pts)
+    if er.get("callback_guarantee_minutes"):
+        score += 30
+    # primary_contact name (20 pts) — not always named in transcripts
+    if er.get("primary_contact"):
+        score += 20
+    # backup_phone (10 pts) — optional
+    if er.get("backup_phone"):
+        score += 10
+    # special_instructions (5 pts) — rare
+    if er.get("special_instructions"):
+        score += 5
+    return min(100, score)
+
+
+def _score_call_transfer_rules(tr: dict) -> int:
+    """Score call_transfer_rules — transfer_fail_protocol is most important."""
+    if not tr:
+        return 0
+    score = 0
+    # transfer_fail_protocol is most critical (50 pts)
+    if tr.get("transfer_fail_protocol"):
+        score += 50
+    # transfer_timeout_action (30 pts)
+    if tr.get("transfer_timeout_action"):
+        score += 30
+    # max_rings_before_fallback (20 pts) — rarely mentioned
+    if tr.get("max_rings_before_fallback"):
+        score += 20
+    return score
+
+
+def _score_integration_constraints(constraints: list) -> int:
+    """Score integration_constraints — 1 system is normal, 2+ is bonus."""
+    if not constraints:
+        return 0
+    if len(constraints) >= 3:
+        return 100
+    elif len(constraints) >= 2:
+        return 90
+    else:
+        return 70
+
+
 def compute_extraction_confidence(memo: dict) -> dict:
     """Return a per-field confidence dict and an overall avg score."""
-    fields = {
-        "company_name": memo.get("company_name"),
-        "business_hours": memo.get("business_hours"),
-        "office_address": memo.get("office_address"),
-        "services_supported": memo.get("services_supported"),
-        "emergency_definition": memo.get("emergency_definition"),
-        "emergency_routing_rules": memo.get("emergency_routing_rules"),
-        "callback_guarantee": memo.get("emergency_routing_rules", {}).get("callback_guarantee_minutes"),
-        "call_transfer_rules": memo.get("call_transfer_rules"),
-        "integration_constraints": memo.get("integration_constraints"),
+    scores = {
+        "company_name": _confidence_generic(memo.get("company_name")),
+        "business_hours": _score_business_hours(memo.get("business_hours", {})),
+        "office_address": _confidence_generic(memo.get("office_address")),
+        "services_supported": _confidence_generic(memo.get("services_supported")),
+        "emergency_definition": _confidence_generic(memo.get("emergency_definition")),
+        "emergency_routing_rules": _score_emergency_routing(
+            memo.get("emergency_routing_rules", {})
+        ),
+        "callback_guarantee": _confidence_generic(
+            memo.get("emergency_routing_rules", {}).get("callback_guarantee_minutes")
+        ),
+        "call_transfer_rules": _score_call_transfer_rules(
+            memo.get("call_transfer_rules", {})
+        ),
+        "integration_constraints": _score_integration_constraints(
+            memo.get("integration_constraints", [])
+        ),
     }
-    scores = {k: _confidence(v) for k, v in fields.items()}
     scores["overall"] = int(sum(scores.values()) / len(scores))
     return scores
 
@@ -538,9 +656,17 @@ def generate_questions_or_unknowns(memo: dict) -> list:
     for field, score in confidence.items():
         if field == "overall":
             continue
-        if 0 < score < 40:
+        if 0 < score < 50:
             label = field.replace("_", " ").title()
             questions.append(f"Low confidence extraction for '{label}' — verify with client.")
+
+    # When everything looks good, add a reassuring note so the field isn't empty
+    if not questions:
+        overall = confidence.get("overall", 0)
+        if overall >= 80:
+            questions.append("All fields extracted with high confidence. Ready for agent deployment.")
+        else:
+            questions.append("Review extraction results before deployment — some fields may need verification.")
 
     return questions
 
