@@ -5,7 +5,7 @@
   "version": "v2",
   "metadata": {
     "pipeline_version": "2.0.0",
-    "generated_at": "2026-03-04T20:17:40Z",
+    "generated_at": "2026-03-05T00:35:15Z",
     "account_id": "acc_001",
     "extraction_confidence": {
       "company_name": 100,
@@ -23,7 +23,7 @@
   "response_engine": {
     "type": "conversation-flow",
     "version": 0,
-    "conversation_flow_id": "conversation_flow_b1c35ce13e18"
+    "conversation_flow_id": "conversation_flow_60f52e1ba386"
   },
   "language": "en-US",
   "data_storage_setting": "everything",
@@ -61,7 +61,7 @@
   "call_transfer_protocol": "Transfer emergency calls to on-call technician immediately. If transfer fails, collect caller info and guarantee callback.",
   "fallback_protocol": "If transfer fails: apologize, collect name, phone number, and address. Assure the caller someone will call back within the guaranteed timeframe.",
   "conversationFlow": {
-    "conversation_flow_id": "conversation_flow_b1c35ce13e18",
+    "conversation_flow_id": "conversation_flow_60f52e1ba386",
     "version": 0,
     "global_prompt": "You are the phone receptionist for ABC Plumbing.\n\nYour job is to:\n\u2022 Greet callers professionally\n\u2022 Understand the caller's issue\n\u2022 Collect the caller's name and phone number\n\u2022 Determine whether the issue is an emergency\n\u2022 Route the call according to the rules\n\nCompany Information:\n- Company: ABC Plumbing\n- Address: 123 Main Street, Springfield, IL\n- Business Hours: Monday through Friday, 08:00 to 18:00 EST\n- Services: pipe repair, water heater installation and repair, drain cleaning, sewer line inspection, fixture installation, toilet repair, water filtration system installation, bathroom remodeling as a service\n\nEmergency Definitions:\nThe following situations are considered emergencies: pipe burst, gas leak, sewage backup, major water leak, frozen pipe situations\n\nDuring business hours:\n- Greet the caller warmly and professionally\n- Ask how you can help\n- Collect the caller's name and phone number\n- Determine the type of service needed\n- Transfer the call to the appropriate department\n- If transfer fails, reassure the caller and promise a callback\n\nAfter business hours:\n- Greet the caller\n- Determine if the issue is an emergency\n- If emergency: collect name, phone number, and address immediately\n- Attempt to transfer to the on-call technician\n- If transfer fails: assure the caller someone will call them back shortly\n- If not an emergency: take a message with name, phone, and description\n- Let them know someone will reach out the next business day\n\nImportant Rules:\n- Keep questions minimal and professional\n- Only collect information needed for routing and dispatch\n- Never mention internal systems, tools, or function calls to the caller\n- Always end by asking if the caller needs anything else\n- Be empathetic and reassuring, especially during emergencies\n\nCallback Guarantee: When a transfer fails or a non-emergency after-hours call is received, assure the caller that someone will call them back within 15 minutes.\n\nIntegration Constraints:\n- Primary system: ServiceTrade\n- sprinkler-related jobs in ServiceTrade\n- backflow testing jobs in ServiceTrade\n\nAdditional Notes: Auto-extracted from demo call transcript for ABC Plumbing. Confidence scores are per-field estimates; fields below 60% should be verified with the client. | added Saturday hours from 9 AM to 1 PM. Same timezone, Eastern | do water filtration system installation and tankless water heater installation. Also, we've started offering bathroom remodeling as a service | though \u2014 we also don't want anyone creating backflow testing jobs in ServiceTrade. Those go through a separate certification system |  We've hired a dedicated dispatcher, so during business hours, all service calls should transfer to the dispatcher at extension 105 instead of the general dispatch at 101. Billing is still 102",
     "nodes": [
@@ -73,8 +73,8 @@
         "name": "Greeting",
         "edges": [
           {
-            "destination_node_id": "node-extract-bf9031a0",
-            "id": "edge-greet-c478042d",
+            "destination_node_id": "node-extract-b7f2be7f",
+            "id": "edge-greet-39d473b1",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Continue"
@@ -82,7 +82,7 @@
           }
         ],
         "start_speaker": "agent",
-        "id": "start-node-ab55db2cac",
+        "id": "start-node-d0f70a521f",
         "type": "conversation",
         "display_position": {
           "x": -220,
@@ -123,8 +123,8 @@
           }
         ],
         "else_edge": {
-          "destination_node_id": "node-non-emerg-90222b75",
-          "id": "node-extract-bf9031a0-else-edge",
+          "destination_node_id": "node-non-emerg-bc143649",
+          "id": "node-extract-b7f2be7f-else-edge",
           "transition_condition": {
             "type": "prompt",
             "prompt": "Else"
@@ -133,14 +133,14 @@
         "name": "Extract Variables",
         "edges": [
           {
-            "id": "edge-extract-e0313b66",
+            "id": "edge-extract-17911f03",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Describe the transition condition"
             }
           }
         ],
-        "id": "node-extract-bf9031a0",
+        "id": "node-extract-b7f2be7f",
         "type": "extract_dynamic_variables",
         "display_position": {
           "x": 5,
@@ -151,18 +151,18 @@
         "name": "Logic Split",
         "edges": [
           {
-            "destination_node_id": "node-emerg-conv-41ba41bf",
-            "id": "edge-branch-72b7b163",
+            "destination_node_id": "node-emerg-conv-1685b294",
+            "id": "edge-branch-c81ea1ec",
             "transition_condition": {
               "type": "prompt",
               "prompt": "is_emergency == true"
             }
           }
         ],
-        "id": "node-branch-e7e0c60c",
+        "id": "node-branch-2df9891c",
         "else_edge": {
-          "destination_node_id": "node-non-emerg-90222b75",
-          "id": "edge-branch-else-d4fec911",
+          "destination_node_id": "node-non-emerg-bc143649",
+          "id": "edge-branch-else-48fe1404",
           "transition_condition": {
             "type": "prompt",
             "prompt": "Else"
@@ -178,15 +178,15 @@
         "name": "Emergency Conversation",
         "edges": [
           {
-            "destination_node_id": "node-transfer-ff250f61",
-            "id": "edge-emerg-1d7f7fb4",
+            "destination_node_id": "node-transfer-9c30ed5c",
+            "id": "edge-emerg-9c0d3f1d",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Please hold while I connect you to our emergency technician."
             }
           }
         ],
-        "id": "node-emerg-conv-41ba41bf",
+        "id": "node-emerg-conv-1685b294",
         "type": "conversation",
         "display_position": {
           "x": 370,
@@ -204,8 +204,8 @@
           "number": "+15550199"
         },
         "edge": {
-          "destination_node_id": "node-fail-conv-8a0305b8",
-          "id": "edge-transfer-366c5074",
+          "destination_node_id": "node-fail-conv-71a80e61",
+          "id": "edge-transfer-1974de00",
           "transition_condition": {
             "type": "prompt",
             "prompt": "Transfer failed"
@@ -213,7 +213,7 @@
         },
         "name": "Transfer Call",
         "ignore_e164_validation": false,
-        "id": "node-transfer-ff250f61",
+        "id": "node-transfer-9c30ed5c",
         "transfer_option": {
           "type": "cold_transfer",
           "show_transferee_as_caller": false,
@@ -230,15 +230,15 @@
         "name": "Transfer Failed",
         "edges": [
           {
-            "destination_node_id": "node-end-fail-990dba89",
-            "id": "edge-fail-3fb7aebc",
+            "destination_node_id": "node-end-fail-f16984b7",
+            "id": "edge-fail-18f98a2c",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Thank you for calling. We will get back to you shortly."
             }
           }
         ],
-        "id": "node-fail-conv-8a0305b8",
+        "id": "node-fail-conv-71a80e61",
         "type": "conversation",
         "display_position": {
           "x": 385,
@@ -251,7 +251,7 @@
       },
       {
         "name": "End Call (Emergency Fail)",
-        "id": "node-end-fail-990dba89",
+        "id": "node-end-fail-f16984b7",
         "type": "end",
         "speak_during_execution": true,
         "display_position": {
@@ -267,15 +267,15 @@
         "name": "Non-Emergency Handling",
         "edges": [
           {
-            "destination_node_id": "node-end-nonemerg-ddacd52b",
-            "id": "edge-nonemerg-ab631f02",
+            "destination_node_id": "node-end-nonemerg-68727976",
+            "id": "edge-nonemerg-a2b91db1",
             "transition_condition": {
               "type": "prompt",
               "prompt": "Caller has been helped or message taken."
             }
           }
         ],
-        "id": "node-non-emerg-90222b75",
+        "id": "node-non-emerg-bc143649",
         "type": "conversation",
         "display_position": {
           "x": -50,
@@ -288,7 +288,7 @@
       },
       {
         "name": "End Call",
-        "id": "node-end-nonemerg-ddacd52b",
+        "id": "node-end-nonemerg-68727976",
         "type": "end",
         "display_position": {
           "x": 300,
@@ -300,7 +300,7 @@
         }
       }
     ],
-    "start_node_id": "start-node-ab55db2cac",
+    "start_node_id": "start-node-d0f70a521f",
     "start_speaker": "agent",
     "model_choice": {
       "type": "cascading",
